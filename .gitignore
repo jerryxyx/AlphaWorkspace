@@ -1,0 +1,34 @@
+# OpenClaw workspace gitignore
+
+# OpenClaw runtime/config (may contain API keys, tokens)
+.openclaw/
+
+# ClawHub cache
+.clawhub/
+
+# Node modules (if any skills install dependencies)
+node_modules/
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+
+# Temporary/log files
+*.log
+*.tmp
+
+# Large binary files (except business‑documents/)
+!business‑documents/*.pdf
+*.pdf
+*.zip
+*.tar.gz
+
+# Secrets
+*.key
+*.pem
+*_key
+*_token
+*_secret
+.env
+.env.local

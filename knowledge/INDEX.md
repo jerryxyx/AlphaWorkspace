@@ -1,0 +1,146 @@
+# Knowledge Index
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑10*
+
+This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
+
+**How to use:**
+- Navigate the workspace by following the links below.
+- During weekly reviews, update this index to reflect additions, removals, or reorganizations.
+- The index is independent of the underlying LLM; cloning this tree to a new machine restores the “brain”.
+
+---
+
+## 1. Roles
+Capability profiles that define what the Agent needs to know (`topics/`) and what it produces (`delivery/`).
+
+### 1.1 Trading Execution
+- **Topics**: [pre‑market checklist](roles/trading‑execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling workflows
+- **Delivery**: [morning summary script](roles/trading‑execution/delivery/morning‑summary.sh), attention‑optimizer logs
+
+### 1.2 Trading Project
+- **Topics**: quantitative research, model derivations, mathematical frameworks
+- **Delivery**: backtesting code, visualization tools, simulation outputs
+
+---
+
+## 2. Knowledge Domains
+Deep, domain‑specific notes referenced by the index.
+
+### 2.1 Trading Knowledge
+- Product specifications, market mechanics, risk concepts
+- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md)
+
+### 2.2 Quantitative Knowledge
+- Models, formulas, derivations, numerical methods
+- *Files*: [Black‑Scholes extensions](knowledge/quantitative/black‑scholes‑extensions.md), [vol‑surface math](knowledge/quantitative/vol‑surface‑math.md)
+
+### 2.3 Operational Knowledge
+- Tools, processes, Git workflows, OpenClaw skill usage
+- *Files*: [daily Git routine](knowledge/operational/daily‑git‑routine.md), [weekly review checklist](knowledge/operational/weekly‑review‑checklist.md)
+
+---
+
+## 3. Trading
+Desk‑level organization mirroring the HK public‑distribution desk.
+
+### 3.1 Products
+#### 3.1.1 Warrants
+- **Topics**: [Asian/European specs](trading/products/warrants/topics/specs.md), issuer details, pricing conventions
+- **Delivery**: [pricing script](trading/products/warrants/delivery/pricing.py), margin calculators
+
+#### 3.1.2 CBBCs
+- **Topics**: barrier‑option mechanics, KO/residual‑value formulas, TV‑profile bounds
+- **Delivery**: KO‑hedge scripts, TV‑profile monitors
+
+#### 3.1.3 Listed Options
+- **Topics**: OMM obligations, American/European differences, speed‑optimization needs
+- **Delivery**: order‑routing scripts, stamp‑exemption tools
+
+#### 3.1.4 DLC
+- **Topics**: path‑dependent formulas, term‑sheet variants, daily verification steps
+- **Delivery**: intrinsic‑value replicators, daily‑check scripts
+
+### 3.2 Execution
+Cross‑product trading‑execution support.
+- **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling
+- **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), P&L/risk monitors, slippage trackers
+
+---
+
+## 4. Projects
+Ongoing initiatives with clear separation of knowledge (`topics/`) from deliverables (`delivery/`).
+
+### 4.1 Warrant Vol Management
+- **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
+- **Delivery**: Monte‑Carlo simulations, margin‑surface generator
+
+### 4.2 Algo Vol Fitter
+- **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
+- **Delivery**: fitter implementation, latency benchmarks
+
+### 4.3 Street Directed Flow
+- **Topics**: L3 order data, broker inheritance, flow‑prediction models
+- **Delivery**: flow estimator, heat‑map dashboards
+
+### 4.4 GED Signal
+- **Topics**: IV‑RV, skew, z‑score calculations, backtesting frameworks
+- **Delivery**: signal generator, portfolio‑simulation tools
+
+### 4.5 Stamp Exemption
+- **Topics**: HKEX rules, option‑flow simulation, stamp‑duty logic
+- **Delivery**: trade‑qualification scripts, exemption tracker
+
+### 4.6 FAFB
+- **Topics**: FA/FB parameters, event‑driven spread widening, convergence behavior
+- **Delivery**: parameter‑tuning scripts, convergence monitors
+
+### 4.7 Elastic
+- **Topics**: toxic‑flow detection, broker‑ID patterns, liquidity‑drop logic
+- **Delivery**: liquidity‑drop algorithms, spread‑adjustment logic
+
+### 4.8 Alpha
+- **Topics**: lead‑lag PCA, order‑flow spread models *(placeholder)*
+- **Delivery**: *(placeholder for future deliverables)*
+
+---
+
+## 5. Memory
+Temporal logs for raw events, weekly summaries, and curated long‑term insights.
+
+### 5.1 Daily Logs
+- [2026‑03‑10](memory/daily/2026‑03‑10.md) *(today)*
+- *Older logs*: `memory/daily/YYYY‑MM‑DD.md`
+
+### 5.2 Weekly Summaries
+- *Summaries*: `memory/weekly/`
+
+### 5.3 Long‑Term Memory
+- Curated insights distilled from daily logs *(eventually merged into `MEMORY.md` for main‑session use)*
+
+---
+
+## 6. Programme
+The foundational Agent Programme and its evolution.
+
+- **Raw original**: [AgentProgramme.txt](programme/raw/AgentProgramme.txt)
+- **Digested version**: [PROGRAMME.md](../PROGRAMME.md)
+- **Architecture proposal**: [architecture‑proposal.md](programme/architecture‑proposal.md)
+- **Review notes**: `programme/reviews/`
+
+---
+
+## 7. External References
+- **Business documents**: `business‑documents/` (papers, reports, competitor analysis)
+- **OpenClaw skills**: `skills/` (installed toolkits)
+
+---
+
+## Update Log
+| Date | Change | Updated by |
+|------|--------|------------|
+| 2026‑03‑10 | Initial skeleton created | OpenClaw Agent |
+| | *Weekly reviews will add entries here* | |
+
+---
+
+*This index is maintained as part of the Agent Programme’s structured‑memory system. Refer to [PROGRAMME.md](../PROGRAMME.md) for the full context.*
