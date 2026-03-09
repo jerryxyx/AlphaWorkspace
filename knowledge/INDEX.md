@@ -10,91 +10,80 @@ This file is the central index of the Agent’s structured knowledge system. It 
 
 ---
 
-## 1. Roles
-Capability profiles that define what the Agent needs to know (`topics/`) and what it produces (`delivery/`).
 
-### 1.1 Trading Execution
-- **Topics**: [pre‑market checklist](roles/trading‑execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling workflows
-- **Delivery**: [morning summary script](roles/trading‑execution/delivery/morning‑summary.sh), attention‑optimizer logs
 
-### 1.2 Trading Project
-- **Topics**: quantitative research, model derivations, mathematical frameworks
-- **Delivery**: backtesting code, visualization tools, simulation outputs
-
----
-
-## 2. Knowledge Domains
+## 1. Knowledge Domains
 Deep, domain‑specific notes referenced by the index.
 
-### 2.1 Trading Knowledge
+### 1.1 Trading Knowledge
 - Product specifications, market mechanics, risk concepts
 - *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md)
 
-### 2.2 Quantitative Knowledge
+### 1.2 Quantitative Knowledge
 - Models, formulas, derivations, numerical methods
 - *Files*: [Black‑Scholes extensions](knowledge/quantitative/black‑scholes‑extensions.md), [vol‑surface math](knowledge/quantitative/vol‑surface‑math.md)
 
-### 2.3 Operational Knowledge
+### 1.3 Operational Knowledge
 - Tools, processes, Git workflows, OpenClaw skill usage
 - *Files*: [daily Git routine](knowledge/operational/daily‑git‑routine.md), [weekly review checklist](knowledge/operational/weekly‑review‑checklist.md)
 
 ---
 
-## 3. Trading
+## 2. Trading
 Desk‑level organization mirroring the HK public‑distribution desk.
 
-### 3.1 Products
-#### 3.1.1 Warrants
+### 2.1 Products
+#### 2.1.1 Warrants
 - **Topics**: [Asian/European specs](trading/products/warrants/topics/specs.md), issuer details, pricing conventions
 - **Delivery**: [pricing script](trading/products/warrants/delivery/pricing.py), margin calculators
 
-#### 3.1.2 CBBCs
+#### 2.1.2 CBBCs
 - **Topics**: barrier‑option mechanics, KO/residual‑value formulas, TV‑profile bounds
 - **Delivery**: KO‑hedge scripts, TV‑profile monitors
 
-#### 3.1.3 Listed Options
+#### 2.1.3 Listed Options
 - **Topics**: OMM obligations, American/European differences, speed‑optimization needs
 - **Delivery**: order‑routing scripts, stamp‑exemption tools
 
-#### 3.1.4 DLC
+#### 2.1.4 DLC
 - **Topics**: path‑dependent formulas, term‑sheet variants, daily verification steps
 - **Delivery**: intrinsic‑value replicators, daily‑check scripts
 
-### 3.2 Execution
+### 2.2 Execution
 Cross‑product trading‑execution support.
 - **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling
 - **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), P&L/risk monitors, slippage trackers
 
 ---
 
-## 4. Projects
+## 3. Projects
 Ongoing initiatives with clear separation of knowledge (`topics/`) from deliverables (`delivery/`).
 
-### 4.1 Warrant Vol Management
+### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
 - **Delivery**: Monte‑Carlo simulations, margin‑surface generator
 
-### 4.2 Algo Vol Fitter
+### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
 - **Delivery**: fitter implementation, latency benchmarks
 
-### 4.3 Street Directed Flow
+### 3.3 Street Directed Flow
 - **Topics**: L3 order data, broker inheritance, flow‑prediction models
 - **Delivery**: flow estimator, heat‑map dashboards
 
-### 4.4 GED Signal
+### 3.4 GED Signal
 - **Topics**: IV‑RV, skew, z‑score calculations, backtesting frameworks
 - **Delivery**: signal generator, portfolio‑simulation tools
 
-### 4.5 Stamp Exemption
+### 3.5 Stamp Exemption
 - **Topics**: HKEX rules, option‑flow simulation, stamp‑duty logic
 - **Delivery**: trade‑qualification scripts, exemption tracker
 
-### 4.6 FAFB
+### 3.6 FAFB
 - **Topics**: FA/FB parameters, event‑driven spread widening, convergence behavior
 - **Delivery**: parameter‑tuning scripts, convergence monitors
 
-### 4.7 Elastic
+### 3.7 Elastic
 - **Topics**: toxic‑flow detection, broker‑ID patterns, liquidity‑drop logic
 - **Delivery**: liquidity‑drop algorithms, spread‑adjustment logic
 

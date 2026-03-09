@@ -22,13 +22,7 @@
 │   ├── raw/AgentProgramme.txt       # Original Operator draft
 │   ├── digested/                    # Versioned digested copies (optional)
 │   └── reviews/                     # Proofreads, review notes
-├── roles/                           # Capability profiles
-│   ├── trading‑execution/
-│   │   ├── topics/                  # Market summaries, decision trees, workflows
-│   │   └── delivery/                # Scripts, dashboards, attention‑optimizer logs
-│   └── trading‑project/
-│       ├── topics/                  # Quantitative research, models, math
-│       └── delivery/                # Code, backtests, visualizations
+
 ├── knowledge/                       # Structured memory system
 │   ├── INDEX.md                     # Root knowledge tree (maps all domains)
 │   ├── trading/                     # Product specs, market mechanics, risk concepts
