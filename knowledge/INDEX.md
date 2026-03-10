@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑10*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑11*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -52,7 +52,7 @@ Desk‑level organization mirroring the HK public‑distribution desk.
 ### 2.2 Execution
 Cross‑product trading‑execution support.
 - **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling
-- **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), P&L/risk monitors, slippage trackers
+- **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), morning reports, P&L/risk monitors, slippage trackers
 
 ---
 
@@ -128,6 +128,7 @@ The foundational Agent Programme and its evolution.
 | Date | Change | Updated by |
 |------|--------|------------|
 | 2026‑03‑10 | Initial skeleton created | OpenClaw Agent |
+| 2026‑03‑11 | Added morning reports to Execution delivery | OpenClaw Agent |
 | | *Weekly reviews will add entries here* | |
 
 ---

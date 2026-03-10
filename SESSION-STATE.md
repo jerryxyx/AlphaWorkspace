@@ -4,7 +4,7 @@
 
 **Status:** ACTIVE  
 **Started:** 2026-03-10T14:17:00Z  
-**Last Updated:** 2026-03-10T14:17:00Z  
+**Last Updated:** 2026-03-10T15:19:00Z  
 
 ---
 
@@ -45,6 +45,13 @@
 - **22:37 HKT**: Added `OPENCLAW_GATEWAY_PASSWORD=kxkl` to `.env`, cleaned duplicate from `.zshrc`
 - **23:04 HKT**: Cron schedule updates: git commit reminder → 21:00 HKT, morning trading report → 07:00 HKT
 - **23:08 HKT**: Generating real‑time morning report with tavily‑search data
+- **23:19 HKT**: Sent git reminder and live morning trading report to Discord DM (user:406062873169887273)
+
+### 2026-03-11
+- **07:08 HKT**: Manual update of morning trading report with live data (HSI, HSCEI, FX) due to Gemini API location restrictions. Updated template per user feedback.
+- **07:15 HKT**: Tested tavily-search skill – works (HSI price retrieved). Updated morning report cron job payload to use tavily-search instead of web_search.
+- **07:16 HKT**: Added TAVILY_API_KEY to tavily skill environment config for isolated sessions (config.patch). Gateway restarting.
+- **07:16 HKT**: Manually triggered morning report cron job to test updated configuration.
 
 ---
 
