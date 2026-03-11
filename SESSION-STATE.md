@@ -4,7 +4,7 @@
 
 **Status:** ACTIVE  
 **Started:** 2026-03-10T14:17:00Z  
-**Last Updated:** 2026-03-10T15:19:00Z  
+**Last Updated:** 2026-03-10T23:17:00Z  
 
 ---
 
@@ -52,6 +52,23 @@
 - **07:15 HKT**: Tested tavily-search skill – works (HSI price retrieved). Updated morning report cron job payload to use tavily-search instead of web_search.
 - **07:16 HKT**: Added TAVILY_API_KEY to tavily skill environment config for isolated sessions (config.patch). Gateway restarting.
 - **07:16 HKT**: Manually triggered morning report cron job to test updated configuration.
+- **07:17 HKT**: Daily git commit reminder handled – committed workspace changes (morning report template, live data, knowledge index).
+- **07:29 HKT**: User requested re‑trigger of morning report after gateway restart and tavily‑search config updates.
+- **07:44 HKT**: User instructed to search for all missing data (calendar events, ADRs, interest rates, 5‑day FX changes, news) via tavily‑search or web search instead of marking "API restrictions". Will regenerate complete report.
+- **07:45 HKT**: Spawned subagent `complete-morning-report-all-data` to generate report with comprehensive tavily‑search queries for all missing sections. Cron job payload needs updating to include these searches for future reports.
+- **07:48 HKT**: Updated morning report cron job payload with comprehensive search queries for all data sections (calendar events, ADRs, interest rates, FX 5‑day changes, news). Future reports will be complete.
+- **07:53 HKT**: User requested report sent as Discord message (readable) + attached .md file. Delivered final consolidated report with clean data from tavily‑search queries.
+- **08:12 HKT**: User requested ADR excess‑move analysis. Scraped AAStocks.com ADR and A+H+ADR pages via browser automation. Compiled table of top excess moves (>1%) and always‑shown stocks (0005, 0388, 0700, 3690, 9988). Sent summary + .md attachment to Discord DM.
+- **08:25 HKT**: User instructed to format HK stock symbols as 4‑digit codes (e.g., 3988.HK, 1398.HK, 0939.HK, 2318.HK). Updated ADR excess‑moves table accordingly. Also requested addition of IG Extended column for overnight spot moves; updated morning‑report template with `IG Extended (Pre‑market)` column.
+- **08:32 HKT**: User requested rename of Reuters column to T‑1 and addition of T0 column using futures data from investing.com. Updated morning‑report template and today's report with T‑1 (Reuters) and T0 (futures) columns. Also updated ADR table in morning report to show 4‑digit HK symbols with US ADR tickers in parentheses.
+- **08:43 HKT**: User corrected T0 calculation – was comparing March 9 close to present instead of March 10 close to present. Updated report with corrected T0 values (HSI –0.07%, HSCEI +0.28%) and clarified column definitions. Also updated volatility conduction and focus sections accordingly.
+- **11:10 HKT**: User pointed out ADR excess‑move formula error. Column “H Shares VS. ADRs” is already a percentage, not HKD difference. Corrected calculation: excess move = – (column value). Compared with manual calculation using raw ADR‑HKD and HK‑HKD prices. Generated corrected ADR excess‑moves table with top 5 moves and always‑included symbols.
+- **12:25 HKT**: User requested regeneration of today's morning report as of current time (12:25 HKT). Spawned subagent `morning-report-1225-regen` to fetch fresh market data, apply corrected ADR formula, and deliver updated report.
+- **12:45 HKT**: First subagent stalled; killed and spawned simpler subagent `morning-report-1245-simpler` that reuses existing ADR excess data and fetches only live market prices.
+- **12:50 HKT**: Manually generated updated morning report at 12:45 HKT with corrected ADR excess formula, live HSI/HSCEI prices, and latest market data. Sent to Discord DM.
+- **12:55 HKT**: User questioned missing 9988.HK in ADR table. Explained AAStocks table likely only includes H‑shares; Alibaba not an H‑share. Manually computed excess using BABA ADR price (ratio 8:1). Updated morning report and ADR excess‑corrected file with 9988.HK row (ADR HKD 134.03, VS +1.022%, excess –1.022%). Sent updated files to Discord.
+- **20:48 HKT**: User requested enlargement of cron job timeout from 300 to 600 seconds. Updated cron job payload (`f8b26e5c‑dc51‑4da1‑bb86‑8503cf4fb662`) with `timeoutSeconds: 600`.
+- **20:53 HKT**: User noted missing HSBC (0005.HK) ex‑dividend in calendar section. Added HSBC ex‑dividend March 12 (dividend HK$3.52038) to report. Generated preview morning report for March 12 with current market data (indices, ADR excess moves, rates, FX). Sent to Discord DM.
 
 ---
 

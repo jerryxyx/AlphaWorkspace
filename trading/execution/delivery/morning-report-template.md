@@ -14,16 +14,21 @@
 
 ## 2. Overnight Spot Moves
 
-### Hong Kong Indices (Live vs 4pm Close)
-| Index | 4pm Close (Mark) | Current (Live) | Change | % Change |
-|-------|------------------|----------------|--------|----------|
-| HSI | | | | |
-| HSCEI | | | | |
+### Hong Kong Indices (Overnight Moves)
+| Index | 4pm Close (Mark) | T‑1 (Day‑on‑Day) | T0 (Close‑to‑Present) |
+|-------|------------------|------------------|----------------------|
+| HSI | | | |
+| HSCEI | | | |
+
+*4pm Close (Mark): Yesterday's close (most recent trading day).  
+T‑1: Day‑on‑day change from previous close to yesterday's close.  
+T0: Close‑to‑present move from yesterday's close to current live spot (Yahoo Finance/Reuters).*
 
 ### Major ADRs/GDRs (AAStocks.com)
 | Stock (Symbol) | Last Close | Current | Change | % Change | Note |
 |----------------|------------|---------|--------|----------|------|
-| *Big names / big moves only* | | | | | |
+| *Big names / big moves only. Symbols as 4‑digit codes (e.g., 3988.HK, 1398.HK).*  
+*Excess move (expected HK open gap‑fill) = (ADR_Price_HKD – HK_Price) / HK_Price × 100%.* | | | | | |
 
 ### Interest Rate Moves (Pre‑9:15am Proxy)
 **US Treasury Yields (3M, 6M, 1Y, 2Y)**
