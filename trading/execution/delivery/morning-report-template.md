@@ -4,7 +4,13 @@
 ## 1. Calendar Events (Next 2 Weeks)
 
 ### Ex‑dividend Dates (HKEX Listed Equity)
-- *Search HKEX announcements for ex‑dividend dates in next 14 days*
+| Date | Stock (Symbol) | Div Amount (HK$) | Div % | Payable Date | Note |
+|------|----------------|------------------|-------|--------------|------|
+| *Search HKEX announcements for ex‑dividend dates in next 14 days* | | | | | |
+
+*Example:*
+| 2026‑03‑12 | HSBC (0005.HK) | 3.53 | 2.60% | 2026‑04‑30 | Quarterly dividend |
+| 2026‑03‑11 | HKEX (0388.HK) | 6.52 | *tbd* | 2026‑03‑25 | Second interim dividend |
 
 ### Index Rebalancing (Next 2 Weeks)
 - *HSI, HSCEI, Hang Seng Tech Index rebalancing dates if within 2 weeks*

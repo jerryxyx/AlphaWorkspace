@@ -17,6 +17,7 @@ node_modules/
 # Temporary/log files
 *.log
 *.tmp
+temp/
 
 # Large binary files (except business‑documents/)
 !business‑documents/*.pdf

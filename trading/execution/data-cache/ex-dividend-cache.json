@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2026-03-11T15:50:00Z",
+  "expiresAt": "2026-03-18T22:00:00Z",
+  "data": [
+    {
+      "date": "2026-03-11",
+      "symbol": "0388.HK",
+      "name": "HKEX",
+      "divAmountHKD": 6.52,
+      "divPercent": null,
+      "payableDate": "2026-03-25",
+      "note": "Second interim dividend"
+    },
+    {
+      "date": "2026-03-12",
+      "symbol": "0005.HK",
+      "name": "HSBC Holdings",
+      "divAmountHKD": 3.53,
+      "divPercent": 2.6,
+      "payableDate": "2026-04-30",
+      "note": "Quarterly dividend"
+    }
+  ]
+}

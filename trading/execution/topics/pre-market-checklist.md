@@ -58,6 +58,12 @@ Review each morning before market open (∼8:45–9:15 HKT).
 2. Monitor first 30 minutes of trading for unexpected flow.
 3. Log any deviations from checklist in `memory/daily/YYYY‑MM‑DD.md`.
 
+**Report‑Generation Notes**
+- Check `data‑cache/` for stale entries (weekly refresh).
+- Update `report‑generation‑log.md` with each execution.
+- Prefer cache over Tavily search to reduce costs.
+- Validate ex‑dividend % = Div Amount / Previous Close.
+
 ---
 
 *This checklist evolves with market structure and desk procedures. Update as needed.*

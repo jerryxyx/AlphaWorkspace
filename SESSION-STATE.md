@@ -4,7 +4,7 @@
 
 **Status:** ACTIVE  
 **Started:** 2026-03-10T14:17:00Z  
-**Last Updated:** 2026-03-10T23:17:00Z  
+**Last Updated:** 2026-03-12T23:34:00Z  
 
 ---
 
@@ -69,6 +69,11 @@
 - **12:55 HKT**: User questioned missing 9988.HK in ADR table. Explained AAStocks table likely only includes H‑shares; Alibaba not an H‑share. Manually computed excess using BABA ADR price (ratio 8:1). Updated morning report and ADR excess‑corrected file with 9988.HK row (ADR HKD 134.03, VS +1.022%, excess –1.022%). Sent updated files to Discord.
 - **20:48 HKT**: User requested enlargement of cron job timeout from 300 to 600 seconds. Updated cron job payload (`f8b26e5c‑dc51‑4da1‑bb86‑8503cf4fb662`) with `timeoutSeconds: 600`.
 - **20:53 HKT**: User noted missing HSBC (0005.HK) ex‑dividend in calendar section. Added HSBC ex‑dividend March 12 (dividend HK$3.52038) to report. Generated preview morning report for March 12 with current market data (indices, ADR excess moves, rates, FX). Sent to Discord DM.
+- **21:05 HKT**: User requested ex‑dividend dates and amounts from AAStocks Corporate Events - Dividend page (calendar.aspx?type=5) and confirmed ADR excess analysis already uses AAStocks ADR page. Scraped dividend calendar: no ex‑dividend events within next 7 days; next ex‑dividend is SH Group (01637.HK) on March 20, HKD 0.0500. HSBC ex‑dividend not listed on this page. Will update morning report template to use AAStocks Corporate Events Dividend as primary source for ex‑div dates.
+- **21:48 HKT**: User approved timeout and optimization improvements. Implemented:\n   **1. Browser timeout pattern:** Add `timeoutMs: 15000` to all `browser act` calls.\n   **2. Batched Tavily queries:** Combine related searches (calendar, indices, rates/FX, news).\n   **3. Updated cron‑job payload** with concise instructions and timeout guidance.\n   **4. Fallback strategy:** If AAStocks times out, use Tavily for ADR data.\n   **5. Token reduction:** Removed verbose instructional text from payload.\n   Next: Test with a quick morning‑report generation using timeouts.
+
+### 2026-03-12
+- **23:34 HKT**: User approved timeout‑recovery mechanics: 30‑second default timeout for tool calls; log timeouts to `memory/network‑timeouts.log` and continue; use sub‑agents for all long tasks (>30 s). Will implement wrapper pattern.
 
 ---
 

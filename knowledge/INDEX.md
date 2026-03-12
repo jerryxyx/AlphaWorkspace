@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑11*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑12*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -17,7 +17,7 @@ Deep, domain‑specific notes referenced by the index.
 
 ### 1.1 Trading Knowledge
 - Product specifications, market mechanics, risk concepts
-- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md)
+- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md)
 
 ### 1.2 Quantitative Knowledge
 - Models, formulas, derivations, numerical methods
@@ -90,6 +90,15 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 ### 4.8 Alpha
 - **Topics**: lead‑lag PCA, order‑flow spread models *(placeholder)*
 - **Delivery**: *(placeholder for future deliverables)*
+
+---
+
+## 4. Infrastructure
+General‑purpose tooling for network access, system configuration, and real‑world survival.
+
+### 4.1 VPN / Proxy Management
+- **Topics**: [Clash Verge operations](infrastructure/vpn/topics/clash‑verge‑ops.md)
+- **Delivery**: [fastest‑non‑HK selector](infrastructure/vpn/delivery/clash_fastest_non_hk.py), [group latency tester](infrastructure/vpn/delivery/clash_speed_test.py)
 
 ---
 
