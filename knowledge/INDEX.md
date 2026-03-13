@@ -17,7 +17,7 @@ Deep, domain‑specific notes referenced by the index.
 
 ### 1.1 Trading Knowledge
 - Product specifications, market mechanics, risk concepts
-- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md)
+- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md), [warrant vol margin management](knowledge/trading/warrant-vol-margin-management.md), [warrant papers grouped summary](../../business-documents/warrant-papers-grouped-summary.md)
 
 ### 1.2 Quantitative Knowledge
 - Models, formulas, derivations, numerical methods

@@ -75,6 +75,20 @@
 ### 2026-03-12
 - **23:34 HKT**: User approved timeout‑recovery mechanics: 30‑second default timeout for tool calls; log timeouts to `memory/network‑timeouts.log` and continue; use sub‑agents for all long tasks (>30 s). Will implement wrapper pattern.
 
+### 2026-03-13
+- **07:08 HKT**: Morning report cron job generated empty report due to data‑source timeouts (AAStocks, Tavily). Placeholder report saved at `trading/execution/delivery/reports/2026‑03‑13.md`.
+- **07:15 HKT**: User directed to start with targeted paper searches (A) then dive deeper into warrant‑margin bootstrap (C).
+- **07:20 HKT**: Spawned three sub‑agents for paper searches: toxic flow, vol‑margin calibration, cash‑margin arbitrage.
+- **07:25 HKT**: Implemented timeout‑wrapper script (`infrastructure/tooling/timeout_wrapper.py`) with 30‑second default, logging.
+- **07:30 HKT**: Updated warrant‑vol‑margin‑management.md with bootstrapping analysis.
+- **07:09‑07:10 HKT**: All three paper‑search sub‑agents timed out after 60 s (Tavily academic queries too slow). Partial toxic‑flow results saved to `business‑documents/warrant‑research.md`.
+- **07:21 HKT**: User requested paper searches without timeout limit using non‑HK proxy. Switched GLOBAL selector to TG‑US‑1(hysteria). Spawning three new sub‑agents with 300‑second timeouts.
+- **07:36 HKT**: User approved recommendation to implement cache‑first logic for morning report. Starting with Tavily cache wrapper and extending timeout wrapper.
+- **08:12 HKT**: User requested grouped summary of warrant papers across three domains (toxic flow, vol‑margin calibration, cash‑margin arbitrage). Creating consolidated summary.
+- **08:20 HKT**: Grouped summary completed (`business‑documents/warrant‑papers‑grouped‑summary.md`). Added reference to `knowledge/INDEX.md`.
+- **08:18 HKT**: User asked for concrete solution to manage vol in warrants based on paper research. Formulating multi‑layer architecture: monitoring (VPIN), modeling (vega‑sensitive margin), hedging (vega neutrality), execution (broker negotiation), infrastructure (cache/timeout).
+- **10:35 HKT**: User requested volatility adjustment formula beyond fitted‑vol move. Proposed enhanced formula incorporating VPIN, liquidity, curvature risk, and regulatory buffers.
+
 ---
 
 *This file follows the WAL Protocol from proactive-agent skill. Update BEFORE responding when corrections/decisions occur.*
