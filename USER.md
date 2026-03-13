@@ -1,16 +1,17 @@
 # USER.md - About Your Human
 
-_Learn about the person you're helping. Update this as you go._
-
-- **Name:**
-- **What to call them:**
+- **Name:** semimartingale
+- **What to call them:** semimartingale
 - **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+- **Timezone:** Asia/Hong_Kong
+- **Notes:** Trading professional focused on HK warrant/CBBC/listed‑option market making, volatility margin management, index basis arbitrage. Works with OpenClaw for automated morning reports, warrant‑paper research, and infrastructure tooling.
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- **Projects:** Warrant vol management, algo vol fitter, street directed flow, GED signal, stamp‑duty exemption, FAFB, Elastic.
+- **Current focus:** Implementing timeout‑wrapper and cache‑first logic for morning reports; researching toxic flow, vol‑margin calibration, cash‑margin arbitrage in warrant markets.
+- **Operational style:** Prefers concise, actionable summaries; values systematic knowledge organization (INDEX.md, SESSION‑STATE.md).
+- **Technical setup:** Uses OpenClaw with DeepSeek models; GitHub repo `jerryxyx/AlphaWorkspace`; Discord for communication.
 
 ---
 
