@@ -86,4 +86,35 @@ Positive excess → HK price expected to rise relative to ADR; negative → expe
 - **Test optimized workflow** with timeouts and batched queries.
 
 ---
-*Last updated: 2026‑03‑11 22:48 HKT*
+
+## 2026‑03‑14 · Session Persistence & Model Configuration
+
+### Session‑Loss Problem Discovery
+**Issue:** `/restart` command (or gateway restart) creates fresh sessions, deleting old ones with conversation history and high‑context usage (~100% → ~18%).
+
+**Root causes:**
+1. **Model mismatch:** `agents.list[0].model` was explicitly `deepseek/deepseek‑chat`, overriding default `deepseek/deepseek‑reasoner`.
+2. **Session cleanup:** Default maintenance settings prune after 30 days with 500‑entry limit; restart may trigger new session creation.
+
+### Fixes Implemented
+1. **Model configuration:** Updated `openclaw.json` to use `deepseek/deepseek‑reasoner` for main agent.
+2. **Session retention:** Extended maintenance settings:
+   - `pruneAfter: "90d"` (from 30d)
+   - `maxEntries: 1000` (from 500)
+   - `rotateBytes: "50mb"` (from 10mb)
+   - `maxDiskBytes: "1gb"` with `highWaterBytes: "800mb"`
+   - Mode: `"warn"` (preview deletions before enforcement)
+
+### Memory Discipline Improvement
+- **Daily logs:** `memory/daily/YYYY‑MM‑DD.md` for raw chronological entries.
+- **Long‑term memory:** `MEMORY.md` for curated insights (this file).
+- **Rule:** Always write significant decisions/learnings to files; "mental notes" don't survive session restarts.
+
+### Recommended Workflow
+1. **Before important conversations:** Update relevant workspace files.
+2. **During conversations:** Capture key points in daily log.
+3. **After significant work:** Distill insights into `MEMORY.md`.
+4. **Before `/restart`:** Commit workspace changes to Git.
+
+---
+*Last updated: 2026‑03‑14 22:07 HKT*
