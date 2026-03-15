@@ -51,7 +51,7 @@ Desk‑level organization mirroring the HK public‑distribution desk.
 
 ### 2.2 Execution
 Cross‑product trading‑execution support.
-- **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling, [PDT 2026 objectives](trading/execution/topics/PDT‑2026‑objectives.md), [Vassili catch‑up talking points](trading/execution/topics/Vassili‑catchup‑2026‑03‑16.md), [project PDT trading master plan](trading/execution/topics/project‑PDT‑trading‑2026.md)
+- **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling, [PDT 2026 objectives](trading/execution/topics/PDT‑2026‑objectives.md), [Vassili catch‑up talking points](trading/execution/topics/Vassili‑catchup‑2026‑03‑16.md), [project PDT trading master plan](trading/execution/topics/project‑PDT‑trading‑2026.md), [project landscape mapping](trading/execution/topics/PDT‑2026‑project‑landscape‑mapping.md)
 - **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), morning reports, P&L/risk monitors, slippage trackers
 
 ---
@@ -61,7 +61,7 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 
 ### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
-- **Delivery**: Monte‑Carlo simulations, margin‑surface generator
+- **Delivery**: Monte‑Carlo simulations, margin‑surface generator, [cash‑margin arbitrage simulation](project/warrant‑vol‑management/delivery/cash_margin_arbitrage_simulation.py)
 
 ### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
@@ -145,6 +145,7 @@ The foundational Agent Programme and its evolution.
 | 2026‑03‑15 | Added browser automation best practices guide (infrastructure/browser‑best‑practices.md) | OpenClaw Agent |
 | 2026‑03‑15 | Added PDT 2026 objectives and Vassili catch‑up talking points to Execution topics | OpenClaw Agent |
 | 2026‑03‑15 | Added project PDT trading master plan to Execution topics | OpenClaw Agent |
+| 2026‑03‑15 | Added project landscape mapping to Execution topics | OpenClaw Agent |
 
 ---
 
