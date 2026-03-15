@@ -51,7 +51,7 @@ Desk‑level organization mirroring the HK public‑distribution desk.
 
 ### 2.2 Execution
 Cross‑product trading‑execution support.
-- **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling
+- **Topics**: [pre‑market checklist](trading/execution/topics/pre‑market‑checklist.md), intraday alerts, KO handling, [PDT 2026 objectives](trading/execution/topics/PDT‑2026‑objectives.md), [Vassili catch‑up talking points](trading/execution/topics/Vassili‑catchup‑2026‑03‑16.md)
 - **Delivery**: [dashboard](trading/execution/delivery/dashboard.py), morning reports, P&L/risk monitors, slippage trackers
 
 ---
@@ -87,7 +87,7 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 - **Topics**: toxic‑flow detection, broker‑ID patterns, liquidity‑drop logic
 - **Delivery**: liquidity‑drop algorithms, spread‑adjustment logic
 
-### 4.8 Alpha
+### 3.8 Alpha
 - **Topics**: lead‑lag PCA, order‑flow spread models *(placeholder)*
 - **Delivery**: *(placeholder for future deliverables)*
 
@@ -143,6 +143,7 @@ The foundational Agent Programme and its evolution.
 | 2026‑03‑11 | Added morning reports to Execution delivery | OpenClaw Agent |
 | 2026‑03‑15 | Weekly review completed; updated cash‑margin‑arbitrage.md, warrant‑vol‑margin‑management.md, cash‑margin‑arbitrage‑papers.md with new academic findings | OpenClaw Agent |
 | 2026‑03‑15 | Added browser automation best practices guide (infrastructure/browser‑best‑practices.md) | OpenClaw Agent |
+| 2026‑03‑15 | Added PDT 2026 objectives and Vassili catch‑up talking points to Execution topics | OpenClaw Agent |
 
 ---
 
