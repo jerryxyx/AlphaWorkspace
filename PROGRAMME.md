@@ -82,7 +82,9 @@ Roles are capability profiles that build upon basic skills. A single Agent can h
 1. **Trading Execution** – day‑to‑day market‑making, flow management, risk monitoring.
 2. **Trading Project** – systematic/algo development, quantitative research.
 
-**Folder structure per role:**
+**Folder structure per role:**  
+*Note: The `roles/` folder has been merged into `trading/` and `project/` domains. Execution content lives under `trading/execution/`; project content lives under `project/*/` (each project has its own `topics/` and `delivery/` subfolders). The original per‑role folder pattern is still conceptually valid but physically integrated into the domain‑based structure.*
+
 ```
 Role/
 ├── topics/      # knowledge, research, notes

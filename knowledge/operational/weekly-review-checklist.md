@@ -11,14 +11,16 @@ This checklist guides the weekly review of the Agent Programme, roles, and knowl
 - [ ] Once agreed, update `PROGRAMME.md` and commit with message `weekly: programme updates`.
 
 ## 2. Roles Report
+*Note: The `roles/` folder has been merged into `trading/` and `project/` domains. Execution content lives under `trading/execution/`; project content lives under `project/*/`.*
+
 ### 2.1 Trading Execution
-- [ ] Review `roles/trading‑execution/topics/` for new market summaries, decision trees, workflows.
-- [ ] Check `roles/trading‑execution/delivery/` for new/updated scripts, dashboards, logs.
+- [ ] Review `trading/execution/topics/` for new market summaries, decision trees, workflows.
+- [ ] Check `trading/execution/delivery/` for new/updated scripts, dashboards, logs.
 - [ ] Assess whether execution‑role knowledge is keeping pace with market developments.
 
 ### 2.2 Trading Project
-- [ ] Review `roles/trading‑project/topics/` for quantitative research, models, math notes.
-- [ ] Check `roles/trading‑project/delivery/` for code, backtests, visualizations.
+- [ ] Review `project/*/topics/` for quantitative research, models, math notes (scan each project folder).
+- [ ] Check `project/*/delivery/` for code, backtests, visualizations.
 - [ ] Evaluate project‑role progress against quarterly/annual goals.
 
 ## 3. Knowledge Report

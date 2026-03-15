@@ -24,6 +24,36 @@ This document summarizes academic papers, theses, reports, and discussions relat
 - **Summary**: Examines the market‑making dynamics of derivative warrants in Hong Kong, highlighting institutional constraints that make warrants more appealing than options for retail investors.
 - **Relevance**: Describes the structural differences between the warrant and option markets that can give rise to arbitrage opportunities, especially regarding liquidity and margin treatment.
 
+### 1.4 Pricing efficiency and arbitrage: Hong Kong derivatives markets revisited
+- **Source**: Zhang & Lai (2006) – Applied Financial Economics
+- **Summary**: Examines margin‑deposit calculations and cash requirements for arbitrage positions in Hong Kong derivatives markets. Notes that non‑member investors must pay cash for margin deposits, creating a capital barrier.
+- **Relevance**: Highlights the cash‑margin component of arbitrage – not just pricing differentials – and the role of collateral requirements.
+
+### 1.5 Are derivative warrants overpriced?
+- **Source**: Journal of Futures Markets
+- **Summary**: Finds that when securities are admissible as margin collateral, the option‑margin opportunity cost is trivial. Short‑warrant arbitrage profits are generally higher for OTM (out‑of‑the‑money) options.
+- **Relevance**: Warrants’ overpricing relative to options can be exploited via short‑warrant strategies, especially when margin collateral rules differ.
+
+### 1.6 Why are derivative warrants more expensive than options? An empirical study
+- **Source**: Li & Zhang (2011) – Journal of Financial and Quantitative Analysis
+- **Summary**: Demonstrates that two assets with identical cash flows can have different prices due to market segmentation and margin treatment. HKEX Clearing Corporation imposes margin on option positions, while warrants are cash‑settled without collateral requirement.
+- **Relevance**: Identifies a direct arbitrage window: sell warrant + buy option when warrant price exceeds option price by more than margin cost.
+
+### 1.7 Cover Up‑Hong Kong’s Regulation of Exchange‑Traded Warrants
+- **Source**: Lejot (2006) – Hong Kong Law Journal
+- **Summary**: Analyzes regulatory oversight of exchange‑traded warrants in Hong Kong, noting primary oversight by Stock Exchange of Hong Kong and absence of collateral margin for covered warrants.
+- **Relevance**: Regulatory asymmetry creates structural pricing differences exploitable via cash‑margin arbitrage.
+
+### 1.8 The Chinese warrants bubble
+- **Source**: Xiong & Yu (2011) – American Economic Review
+- **Summary**: Documents the Chinese warrants bubble where deep OTM warrants traded far above Black‑Scholes values by large margins. Short‑selling restrictions limited ability to arbitrage overvaluation.
+- **Relevance**: Shows that when margin rules prevent shorting, cash‑margin arbitrage may be impossible – requires shortable warrant leg.
+
+### 1.9 Minimum‑Variance Delta Calibration for the Volatility Smile
+- **Source**: Zhou (2025) – SSRN
+- **Summary**: Proposes constrained Sequential Least Squares Programming (SLSQP) for stable calibration of Minimum‑Variance Delta (MVD) hedging model. Unconstrained OLS leads to overfitting. Rolling‑window calibration reveals parameter time‑variation; bucketing analysis shows heterogeneous performance across moneyness/maturity.
+- **Relevance**: Provides a practical calibration methodology for volatility surfaces used in margin calculations, with direct application to UsedVol surface calibration for warrant margin management.
+
 ---
 
 ## 2. Theses & Dissertations

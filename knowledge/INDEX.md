@@ -17,7 +17,7 @@ Deep, domain‑specific notes referenced by the index.
 
 ### 1.1 Trading Knowledge
 - Product specifications, market mechanics, risk concepts
-- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md), [warrant vol margin management](knowledge/trading/warrant-vol-margin-management.md), [warrant papers grouped summary](../../business-documents/warrant-papers-grouped-summary.md)
+- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md), [warrant vol margin management](knowledge/trading/warrant-vol-margin-management.md), [cash‑margin arbitrage](knowledge/trading/cash‑margin‑arbitrage.md), [warrant papers grouped summary](../../business-documents/warrant-papers-grouped-summary.md)
 
 ### 1.2 Quantitative Knowledge
 - Models, formulas, derivations, numerical methods
@@ -110,7 +110,7 @@ Temporal logs for raw events, weekly summaries, and curated long‑term insights
 - *Older logs*: `memory/daily/YYYY‑MM‑DD.md`
 
 ### 5.2 Weekly Summaries
-- *Summaries*: `memory/weekly/`
+- [2026‑03‑15 summary](memory/weekly/2026‑03‑15‑summary.md), older summaries: `memory/weekly/`
 
 ### 5.3 Long‑Term Memory
 - Curated insights distilled from daily logs *(eventually merged into `MEMORY.md` for main‑session use)*
@@ -138,7 +138,7 @@ The foundational Agent Programme and its evolution.
 |------|--------|------------|
 | 2026‑03‑10 | Initial skeleton created | OpenClaw Agent |
 | 2026‑03‑11 | Added morning reports to Execution delivery | OpenClaw Agent |
-| | *Weekly reviews will add entries here* | |
+| 2026‑03‑15 | Weekly review completed; updated cash‑margin‑arbitrage.md, warrant‑vol‑margin‑management.md, cash‑margin‑arbitrage‑papers.md with new academic findings | OpenClaw Agent |
 
 ---
 
