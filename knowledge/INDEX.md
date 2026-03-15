@@ -142,6 +142,7 @@ The foundational Agent Programme and its evolution.
 | 2026‑03‑10 | Initial skeleton created | OpenClaw Agent |
 | 2026‑03‑11 | Added morning reports to Execution delivery | OpenClaw Agent |
 | 2026‑03‑15 | Weekly review completed; updated cash‑margin‑arbitrage.md, warrant‑vol‑margin‑management.md, cash‑margin‑arbitrage‑papers.md with new academic findings | OpenClaw Agent |
+| 2026‑03‑15 | Added browser automation best practices guide (infrastructure/browser‑best‑practices.md) | OpenClaw Agent |
 
 ---
 
