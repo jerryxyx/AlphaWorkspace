@@ -100,6 +100,9 @@ General‑purpose tooling for network access, system configuration, and real‑w
 - **Topics**: [Clash Verge operations](infrastructure/vpn/topics/clash‑verge‑ops.md)
 - **Delivery**: [fastest‑non‑HK selector](infrastructure/vpn/delivery/clash_fastest_non_hk.py), [group latency tester](infrastructure/vpn/delivery/clash_speed_test.py)
 
+### 4.2 Browser Automation
+- **Best practices**: [Browser automation guide](infrastructure/browser‑best‑practices.md) (context control, compact snapshots, stable refs)
+
 ---
 
 ## 5. Memory
