@@ -61,7 +61,7 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 
 ### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
-- **Delivery**: Monte‑Carlo simulations, margin‑surface generator, [cash‑margin arbitrage simulation](project/warrant‑vol‑management/delivery/cash_margin_arbitrage_simulation.py)
+- **Delivery**: Monte‑Carlo simulations, margin‑surface generator, [cash‑margin arbitrage simulation](project/warrant‑vol‑management/delivery/cash_margin_arbitrage_simulation.py), [cash‑margin algo](project/warrant‑vol‑management/delivery/cash_margin_algo.py), [optimal‑unwind PDE solver](project/warrant‑vol‑management/delivery/optimal_unwind_pde_solver.py)
 
 ### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
@@ -109,7 +109,7 @@ General‑purpose tooling for network access, system configuration, and real‑w
 Temporal logs for raw events, weekly summaries, and curated long‑term insights.
 
 ### 5.1 Daily Logs
-- [2026‑03‑10](memory/daily/2026‑03‑10.md) *(today)*
+- [2026‑03‑16](memory/daily/2026‑03‑16.md) *(today)*
 - *Older logs*: `memory/daily/YYYY‑MM‑DD.md`
 
 ### 5.2 Weekly Summaries

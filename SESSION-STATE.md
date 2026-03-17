@@ -89,6 +89,18 @@
 - **08:18 HKT**: User asked for concrete solution to manage vol in warrants based on paper research. Formulating multi‑layer architecture: monitoring (VPIN), modeling (vega‑sensitive margin), hedging (vega neutrality), execution (broker negotiation), infrastructure (cache/timeout).
 - **10:35 HKT**: User requested volatility adjustment formula beyond fitted‑vol move. Proposed enhanced formula incorporating VPIN, liquidity, curvature risk, and regulatory buffers.
 
+### 2026-03-16
+- **21:00 HKT**: Daily git‑commit reminder handled; updated `.gitignore` (exclude Python cache), added warrant‑vol‑management delivery scripts (`cash_margin_algo.py`, `optimal_unwind_pde_solver.py`, PNG visuals), committed and pushed to `jerryxyx/AlphaWorkspace`.
+- **21:43 HKT**: Workspace cleanup: deleted leftover `__pycache__` directories and `.pyc` files.
+
+### 2026-03-17
+- **12:28 HKT**: Reviewed OpenClaw skills article (“必装的8个skills”); identified missing skills: capability‑evolver (security‑flagged), multi‑search‑engine, agent‑browser.
+- **12:34 HKT**: Enabled self‑improvement skill in `openclaw.json` (`enabled: true`).
+- **12:37 HKT**: Attempted install of capability‑evolver – flagged as suspicious by VirusTotal Code Insight; user declined forced install.
+- **12:46 HKT**: Copied self‑improvement hook (`~/.openclaw/hooks/self‑improvement`), enabled hook, restarted gateway.
+- **12:56 HKT**: Created first learning entry `[LRN‑20260317‑001]` in `.learnings/LEARNINGS.md` documenting browser‑timeout best practice (`timeoutMs: 15000`).
+- **20:11 HKT**: Added second learning entry `[LRN‑20260317‑002]` documenting browser snapshot optimization (`compact=true`, `refs="aria"`, `depth=2`) to reduce token usage 70‑90%.
+
 ---
 
 *This file follows the WAL Protocol from proactive-agent skill. Update BEFORE responding when corrections/decisions occur.*
