@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑12*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑22*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -146,6 +146,7 @@ The foundational Agent Programme and its evolution.
 | 2026‑03‑15 | Added PDT 2026 objectives and Vassili catch‑up talking points to Execution topics | OpenClaw Agent |
 | 2026‑03‑15 | Added project PDT trading master plan to Execution topics | OpenClaw Agent |
 | 2026‑03‑15 | Added project landscape mapping to Execution topics | OpenClaw Agent |
+| 2026‑03‑22 | Weekly review: updated index date; noted Xiaohongshu research workflow in memory; PROGRAMME.md current | OpenClaw Agent |
 
 ---
 
