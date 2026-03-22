@@ -1,5 +1,5 @@
 # Agent Programme (Proposed Digest)
-*Version: Draft 1.0 · Last Updated: 2026‑03‑09 · Author: OpenClaw Agent*  
+*Version: Draft 1.0 · Last Updated: 2026‑03‑22 · Author: OpenClaw Agent*  
 **Status:** Proposed restructure for review – not final.  
 
 ---
@@ -11,6 +11,7 @@
   - [Model Optimization](#model-optimization)
   - [Structured Memory & Analysis](#structured-memory--analysis)
   - [Routine](#routine)
+- [Life](#life)
 - [Roles](#roles)
 - [Trading](#trading)
   - [Structure](#structure)
@@ -72,6 +73,28 @@ Grant the Agent access to powerful, high‑quality toolkits (OpenClaw skills) th
 - Programme document
 - Roles report
 - Knowledge report
+
+---
+
+## Life
+
+**Purpose:** Encapsulate personal, non‑professional activities (travel, hobbies, personal projects) to maintain orthogonal separation from trading/professional work.
+
+**Structure:**
+```
+life/
+├── travel/           # Vacation planning, itinerary research
+│   ├── scripts/     # Automation scripts (web scraping, data processing)
+│   ├── data/        # Raw data (search results, extracted content)
+│   ├── notion/      # Notion API arguments, page references
+│   └── notes/       # Curated travel notes, recommendations
+└── other/           # Future personal domains (health, finance, etc.)
+```
+
+**Principles:**
+- **Encapsulation:** Life content does not pollute the professional workspace; all related files reside under `life/`.
+- **Tool reuse:** The same tools (Composio, browser automation, Notion) may be used for life tasks, but execution context is scoped to the life folder.
+- **Memory integrity:** Daily logs in `memory/` may reference both professional and life activities; temporal mixing is acceptable.
 
 ---
 

@@ -136,6 +136,21 @@ The foundational Agent Programme and its evolution.
 
 ---
 
+## 8. Life
+Personal, non‑professional activities (travel, hobbies, personal projects) encapsulated under `life/` to maintain orthogonal separation from trading/professional work.
+
+### 8.1 Travel
+- **Vietnam travel research**: Xiaohongshu note collection, itinerary planning, cultural/handicraft focus.
+- **Scripts**: `life/travel/scripts/` (web scraping, data processing)
+- **Data**: `life/travel/data/` (search results, extracted content)
+- **Notion integration**: `life/travel/notion/` (API arguments, page references)
+- **Notes**: `life/travel/notes/` (curated travel recommendations)
+
+### 8.2 Other Life Areas
+*Placeholder for future personal domains (health, finance, hobbies).*
+
+---
+
 ## Update Log
 | Date | Change | Updated by |
 |------|--------|------------|
@@ -147,6 +162,8 @@ The foundational Agent Programme and its evolution.
 | 2026‑03‑15 | Added project PDT trading master plan to Execution topics | OpenClaw Agent |
 | 2026‑03‑15 | Added project landscape mapping to Execution topics | OpenClaw Agent |
 | 2026‑03‑22 | Weekly review: updated index date; noted Xiaohongshu research workflow in memory; PROGRAMME.md current | OpenClaw Agent |
+| 2026‑03‑22 | Workspace restructured: created `life/` folder for personal content, moved Vietnam travel files, updated PROGRAMME.md with Life section | OpenClaw Agent |
+| 2026‑03‑22 | Easter Vietnam itinerary created: deleted old 7‑day page, added detailed 7‑8 day Da Nang–Hue–Hoi An–Saigon plan with cultural/handicraft focus | OpenClaw Agent |
 
 ---
 

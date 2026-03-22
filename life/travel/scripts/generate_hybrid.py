@@ -1,0 +1,162 @@
+import json
+
+# New page ID
+page_id = "32b271cf-ee80-8112-b740-f390245aa0d6"
+blocks = []
+
+# Title already set, but add a heading for clarity
+blocks.append({
+    "content": "Hybrid Vietnam Itinerary (4–11 Apr 2026)",
+    "block_property": "heading_1"
+})
+
+# Introduction
+blocks.append({
+    "content": "**Optimized 8‑day itinerary** blending the **geographic efficiency** of the Easter plan (Da Nang → Hue → Hoi An → Saigon) with the **concrete logistics, swimming schedule, and safety details** from the expert recommendation. Focus remains on **culture, handicrafts, local life, natural exploration, and history**.",
+    "block_property": "paragraph"
+})
+
+# Route & flights
+blocks.append({
+    "content": "🗺️ Route & Flight Details",
+    "block_property": "heading_2"
+})
+blocks.append({
+    "content": "**Route:** Hong Kong → Da Nang → Hue → Hoi An → Ho Chi Minh City → Hong Kong (no backtracking)\n• **Outbound:** UO552 (08:25 HKG→DAD) – arrive early 4 Apr\n• **Domestic:** Da Nang → Ho Chi Minh City (VietJet/Vietnam Airlines, ~1.5 h) – evening of 10 Apr\n• **Return:** VJ876 (15:10 SGN→HKG) – 11 Apr\n• **E‑visa:** Select Da Nang (DAD) as entry, Ho Chi Minh (SGN) as exit; apply now (3–5 working days).",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 1
+blocks.append({
+    "content": "**Day 1 (4 Apr, Sat) – Arrival in Da Nang & My Khe Beach**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **08:25** – Fly HKG→DAD (UO552)\n• **09:20** – Arrive Da Nang; e‑visa entry; Grab to hotel (My Khe Beach area)\n• **Afternoon** – Check‑in, lunch at seafood restaurant\n• **Late afternoon** – First swim at My Khe Beach (water ~28 °C)\n• **Evening** – Beach sunset; Dragon Bridge fire/water show (weekends, 21:00)",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 2
+blocks.append({
+    "content": "**Day 2 (5 Apr, Sun) – Da Nang: Marble Mountains & Stone‑Carving Village**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Swim at My Khe Beach (06:00–07:30)\n• **Late morning** – Marble Mountains (Thuy Son) – cave temples, elevator to summit\n• **Afternoon** – Non Nuoc Stone‑Carving Village – 300 workshops, marble souvenirs (Buddha statues, zodiac figurines)\n• **Late afternoon** – Da Nang Cathedral (Pink Church) photo stop\n• **Evening** – Vietnamese seafood dinner along My Khe Beach",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 3
+blocks.append({
+    "content": "**Day 3 (6 Apr, Mon) – Travel to Hue & Imperial Grandeur**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Scenic transfer to Hue via Hai Van Pass (stop at Lap An Lagoon, Lăng Cô Beach)\n• **Afternoon** – Hue Imperial City (UNESCO) – guided walk through Forbidden Purple City, Ngo Mon Gate, Thai Hoa Palace\n• **Evening** – Boat tour on Perfume River, listen to traditional Hue singing",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 4
+blocks.append({
+    "content": "**Day 4 (7 Apr, Tue) – Hue’s Royal Tombs & Traditional Crafts**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Nguyen Dynasty Royal Tombs along Perfume River – Minh Mang, Tu Duc\n• **Afternoon** – Craft villages – Thuy Xuan Incense Village (make your own incense), lotus‑leaf conical‑hat workshops, rice‑paper making\n• **Evening** – Panoramic view from Vong Canh Hill",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 5
+blocks.append({
+    "content": "**Day 5 (8 Apr, Wed) – Travel to Hoi An & Ancient Town Charm**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Bus transfer from Hue to Hoi An (3–4 h) with stops at Hai Van Pass, Lap An Lagoon\n• **Afternoon** – Check‑in near Ancient Town; walking tour (Japanese Covered Bridge, Phuc Kien Assembly Hall, Tan Ky Old House)\n• **Evening** – Swim at An Bang Beach (quieter than My Khe)\n• **Night** – Lantern‑making workshop, dinner in lantern‑lit streets",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 6
+blocks.append({
+    "content": "**Day 6 (9 Apr, Thu) – Hoi An’s Handicrafts & Countryside Life**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Swim at An Bang Beach; explore Hoi An Ancient Town craft street\n• **Lunch** – Must‑try Cao Lau + White Rose dumplings\n• **Afternoon** – Thanh Ha Pottery Village (500‑year‑old) – hand‑make couple‑mugs\n• **Late afternoon** – Tra Que Vegetable Village – organic farming activities, cooking class with fresh herbs\n• **Evening** – Swim at Chu Dai Beach (10 min from town)\n• **Night** – Night market shopping & street food",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 7
+blocks.append({
+    "content": "**Day 7 (10 Apr, Fri) – Hoi An Free Morning → Fly to Ho Chi Minh City**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Free time in Hoi An (optional basket‑boat ride in Cam Thanh coconut forest, crab‑catching with local fishermen)\n• **Afternoon** – Transfer to Da Nang Airport (~40 min)\n• **Evening** – Fly DAD→SGN (~1.5 h); check‑in District 1\n• **Night** – Light dinner, first impressions of Saigon",
+    "block_property": "bulleted_list_item"
+})
+
+# Day 8
+blocks.append({
+    "content": "**Day 8 (11 Apr, Sat) – Ho Chi Minh City Highlights → Return to Hong Kong**",
+    "block_property": "heading_3"
+})
+blocks.append({
+    "content": "• **Morning** – Central Post Office + Notre‑Dame Cathedral (exterior)\n• **Afternoon** – Reunification Palace + War Remnants Museum\n• **Late afternoon** – Ben Thanh Market – handicrafts, coffee, cashews\n• **15:10** – Fly SGN→HKG (VJ876)\n• **18:50** – Arrive Hong Kong",
+    "block_property": "bulleted_list_item"
+})
+blocks.append({
+    "content": "**⚠️ Safety note:** Ho Chi Minh City has high motorcycle density; keep phones/purses secure, cross streets steadily.",
+    "block_property": "paragraph"
+})
+
+# Swimming summary
+blocks.append({
+    "content": "🏊 Swimming Opportunities",
+    "block_property": "heading_2"
+})
+blocks.append({
+    "content": "• **4 Apr (evening)** – My Khe Beach (first dip + sunset)\n• **5 Apr (morning)** – My Khe Beach (06:00–07:30)\n• **8 Apr (evening)** – An Bang Beach (quieter)\n• **9 Apr (morning & evening)** – An Bang + Chu Dai Beach (main swimming day)\n\n**Total:** 4–5 swims, comfortable pace.",
+    "block_property": "bulleted_list_item"
+})
+
+# Handicraft shopping
+blocks.append({
+    "content": "🛍️ Handicraft Shopping List",
+    "block_property": "heading_2"
+})
+blocks.append({
+    "content": "• **Da Nang (Non Nuoc)** – Marble Buddha statues, zodiac figurines\n• **Hue (craft villages)** – Incense sticks, conical hats, rice‑paper, court‑style souvenirs\n• **Hoi An (Ancient Town)** – Silk lanterns, custom Áo Dài, wood carvings, lacquerware\n• **Hoi An (Thanh Ha)** – Hand‑made pottery (couple mugs)\n• **Ho Chi Minh City (Ben Thanh Market)** – Silk, lacquerware, coffee, cashews",
+    "block_property": "bulleted_list_item"
+})
+
+# Important reminders
+blocks.append({
+    "content": "⚠️ Important Reminders",
+    "block_property": "heading_2"
+})
+blocks.append({
+    "content": "• **Visa** – E‑visa (USD 25, 3–5 working days); select Da Nang (DAD) as entry, Ho Chi Minh (SGN) as exit; carry printed copy.\n• **Safety** – Keep phones/bags secure in HCMC; use Grab (app‑based) for taxis; avoid casinos (recent warnings).\n• **Emergency contacts** – Vietnam police 113; Consulate in Da Nang +84‑905‑580‑010; Consulate in HCMC +84‑908‑002‑226; Chinese MFA +86‑10‑12308.",
+    "block_property": "bulleted_list_item"
+})
+
+# Next steps
+blocks.append({
+    "content": "📋 Immediate Next Steps",
+    "block_property": "heading_2"
+})
+blocks.append({
+    "content": "1. Apply for e‑visa (today/tomorrow)\n2. Book HKG→DAD flight (UO552 recommended)\n3. Book SGN→HKG return flight (VJ876 recommended)\n4. Domestic DAD→SGN flight can be booked later (plenty of availability)\n5. After flights confirmed, refine hotel & restaurant list.",
+    "block_property": "numbered_list_item"
+})
+
+# Save JSON
+args = {
+    "parent_block_id": page_id,
+    "content_blocks": blocks
+}
+
+with open("/Users/xyx/.openclaw/workspace/life/travel/notion/hybrid_itinerary_args.json", "w") as f:
+    json.dump(args, f, ensure_ascii=False, indent=2)
+
+print(f"Generated hybrid_itinerary_args.json with {len(blocks)} blocks")

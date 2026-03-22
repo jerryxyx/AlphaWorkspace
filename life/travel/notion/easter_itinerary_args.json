@@ -1,0 +1,120 @@
+{
+  "parent_block_id": "32b271cf-ee80-8131-bbbc-d97113dd0d47",
+  "after": "4dd1ed21-596c-40b5-a1c7-6c37d23e0251",
+  "content_blocks": [
+    {
+      "content_block": {
+        "content": "**Flights:** Fly from Hong Kong (HKG) or Shenzhen (SZX) directly to Da Nang (DAD). Return from Da Nang or from Ho Chi Minh City (SGN) if extending to Saigon.",
+        "block_property": "paragraph"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 1: Arrival in Da Nang & Local Immersion (4 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Afternoon:** Arrive at Da Nang International Airport (DAD), transfer to accommodation.\n• **Local markets:** Visit Han Market or Con Market for fresh produce, local specialties, handicrafts.\n• **Evening:** Explore Helio Night Market (food, entertainment, shopping).",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 2: Da Nang’s Cultural & Craft Highlights (5 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Marble Mountains – explore caves, tunnels, Buddhist temples (Thuy Son).\n• **Nearby:** Non Nuoc Stone Carving Village – watch artisans craft marble sculptures.\n• **Afternoon:** Museum of Cham Sculpture – 5th‑15th century Cham artifacts.\n• **Evening:** Stroll along Han River, see Dragon Bridge fire/water show (weekends).",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 3: Travel to Hue & Imperial Grandeur (6 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Scenic train/bus/private car from Da Nang to Hue via Hai Van Pass (stop at Lap An Lagoon, Lang Co Beach).\n• **Afternoon:** Hue Imperial City (UNESCO) – guided walk through Forbidden Purple City, Ngo Mon Gate, Thai Hoa Palace.\n• **Evening:** Boat tour on Perfume River, listen to traditional Hue singing.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 4: Hue’s Royal Tombs & Traditional Crafts (7 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Nguyen Dynasty Royal Tombs along Perfume River – Minh Mang, Tu Duc (unique architecture, serene landscapes).\n• **Afternoon:** Craft villages – Thuy Xuan Incense Village (make your own incense), lotus‑leaf conical‑hat workshops, rice‑paper making.\n• **Evening:** Panoramic view from Vong Canh Hill.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 5: Travel to Hoi An & Ancient Town Charm (8 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Bus transfer from Hue to Hoi An (3‑4 hours) with stops at Hai Van Pass, Lap An Lagoon, Thanh Toan Tiles‑Roofed Bridge, Marble Mountains.\n• **Afternoon:** Hoi An Ancient Town walking tour – Japanese Covered Bridge, Phuc Kien Assembly Hall, Tan Ky Old House, Historic & Cultural Museum.\n• **Evening:** Lantern‑making workshop, dinner in lantern‑lit streets.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 6: Hoi An’s Handicrafts & Countryside Life (9 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Thanh Ha Pottery Village (500‑year‑old) – try pottery making.\n• **Late morning:** Tra Que Vegetable Village – organic farming activities, cooking class with fresh herbs.\n• **Afternoon:** Kim Bong Carpentry Village (wood carving) or leather‑craft workshop.\n• **Evening:** Free time for shopping, revisit favorite spots.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Day 7: Hoi An Free Time & Departure / Extension to Saigon (10 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Leisurely morning – revisit favorite spot, last‑minute souvenir shopping.\n• **Optional basket‑boat ride:** Coconut forest in Cam Thanh village, crab‑catching with local fishermen.\n• **Afternoon:** Transfer to Da Nang Airport (DAD) for departure **or** fly to Saigon (Ho Chi Minh City) for extension.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "Optional Saigon Extension (11 Apr)",
+        "block_property": "heading_3"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Morning:** Fly from Da Nang to Ho Chi Minh City (SGN).\n• **Afternoon:** Explore Saigon’s highlights – Notre‑Dame Cathedral, Central Post Office, War Remnants Museum, Ben Thanh Market.\n• **Evening:** Depart from SGN back to HK/SZ.",
+        "block_property": "bulleted_list_item"
+      }
+    },
+    {
+      "content_block": {
+        "content": "**Notes**",
+        "block_property": "heading_2"
+      }
+    },
+    {
+      "content_block": {
+        "content": "• **Culture & history:** Covered in Hue Imperial City, royal tombs, Cham Museum, Hoi An Ancient Town.\n• **Handicrafts & local markets:** Non Nuoc stone carving, Hue incense/conical‑hat villages, Hoi An pottery/carpentry/leather workshops, Han/Con markets.\n• **Natural exploration:** Marble Mountains, Hai Van Pass, Lap An Lagoon, Perfume River, coconut‑forest basket boats.\n• **Local life experiences:** Market visits, farming activities (Tra Que), lantern‑making, boat tours, night markets.",
+        "block_property": "bulleted_list_item"
+      }
+    }
+  ]
+}
