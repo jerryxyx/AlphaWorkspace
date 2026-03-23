@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑22*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑23*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -61,7 +61,7 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 
 ### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
-- **Delivery**: Monte‑Carlo simulations, margin‑surface generator, [cash‑margin arbitrage simulation](project/warrant‑vol‑management/delivery/cash_margin_arbitrage_simulation.py), [cash‑margin algo](project/warrant‑vol‑management/delivery/cash_margin_algo.py), [optimal‑unwind PDE solver](project/warrant‑vol‑management/delivery/optimal_unwind_pde_solver.py)
+- **Delivery**: Numerical methods suite for arbitrage‑derivative valuation: lattice (binomial tree), Monte Carlo LSM, PDE finite‑difference solvers; volatility‑function library; Jupyter notebook with visualization; validation tests. See `project/warrant‑vol‑management/delivery/`. (Original margin‑surface and cash‑margin scripts remain.)
 
 ### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
