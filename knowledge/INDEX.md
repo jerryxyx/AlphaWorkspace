@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑23*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑24*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -61,7 +61,7 @@ Ongoing initiatives with clear separation of knowledge (`topics/`) from delivera
 
 ### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
-- **Delivery**: Numerical methods suite for arbitrage‑derivative valuation: lattice (binomial tree), Monte Carlo LSM, PDE finite‑difference solvers; volatility‑function library; Jupyter notebook with visualization; validation tests. See `project/warrant‑vol‑management/delivery/`. (Original margin‑surface and cash‑margin scripts remain.)
+- **Delivery**: Numerical methods suite for arbitrage‑derivative valuation: lattice (binomial tree with early‑exercise boundary for call/put spreads), Monte Carlo LSM, PDE finite‑difference solvers; volatility‑function library; Jupyter notebook with visualization; validation tests. Recent enhancements: lattice supports both call and put spreads, boundary analysis across σ_spot, detection of finite exercise regions, and generation of boundary plots. See `project/warrant‑vol‑management/delivery/`. (Original margin‑surface and cash‑margin scripts remain.)
 
 ### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
@@ -164,6 +164,7 @@ Personal, non‑professional activities (travel, hobbies, personal projects) enc
 | 2026‑03‑22 | Weekly review: updated index date; noted Xiaohongshu research workflow in memory; PROGRAMME.md current | OpenClaw Agent |
 | 2026‑03‑22 | Workspace restructured: created `life/` folder for personal content, moved Vietnam travel files, updated PROGRAMME.md with Life section | OpenClaw Agent |
 | 2026‑03‑22 | Easter Vietnam itinerary created: deleted old 7‑day page, added detailed 7‑8 day Da Nang–Hue–Hoi An–Saigon plan with cultural/handicraft focus | OpenClaw Agent |
+| 2026‑03‑24 | Warrant vol management: lattice extended to call/put spreads, boundary analysis across σ_spot, finite exercise region detection, added memory logs | OpenClaw Agent |
 
 ---
 
