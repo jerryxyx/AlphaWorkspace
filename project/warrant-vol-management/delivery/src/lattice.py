@@ -39,6 +39,37 @@ def black_scholes_call(spot: float, strike: float, time_to_expiry: float,
     return spot * norm.cdf(d1) - strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(d2)
 
 
+def black_scholes_put(spot: float, strike: float, time_to_expiry: float,
+                      risk_free_rate: float, volatility: float) -> float:
+    """
+    European put option price via Black-Scholes formula.
+    
+    Parameters
+    ----------
+    spot : float
+        Current stock price.
+    strike : float
+        Strike price.
+    time_to_expiry : float
+        Time to expiry in years.
+    risk_free_rate : float
+        Continuous risk-free rate.
+    volatility : float
+        Annualized volatility.
+    
+    Returns
+    -------
+    float
+        Put price.
+    """
+    if time_to_expiry <= 0.0:
+        return max(strike - spot, 0.0)
+    d1 = (np.log(spot / strike) + (risk_free_rate + 0.5 * volatility ** 2) * time_to_expiry) \
+         / (volatility * np.sqrt(time_to_expiry))
+    d2 = d1 - volatility * np.sqrt(time_to_expiry)
+    return strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(-d2) - spot * norm.cdf(-d1)
+
+
 def binomial_tree_value(
     n: int,
     S0: float,
@@ -48,6 +79,7 @@ def binomial_tree_value(
     sigma_spot: float,
     sigma_fair_func,
     sigma_offset: float,
+    option_type: str = 'call',
 ) -> tuple[float, np.ndarray, np.ndarray]:
     """
     Binomial tree valuation of the arbitrage derivative.
@@ -70,17 +102,30 @@ def binomial_tree_value(
         Function mapping spot to fair implied volatility.
     sigma_offset : float
         Constant margin added to fair vol for the high-vol option.
+    option_type : str, optional
+        'call' for call spreads, 'put' for put spreads (default 'call').
     
     Returns
     -------
     value : float
         Derivative value at time 0.
     boundary : np.ndarray shape (n+1,)
-        For each time step i (0..n), the spot level above which unwinding is optimal.
+        For each time step i (0..n), the spot level above which unwinding is optimal for calls,
+        or below which unwinding is optimal for puts.
         If no unwinding at that time, boundary[i] = np.inf.
     exercise_flag : np.ndarray shape (n+1,)
         Boolean array indicating whether unwinding is optimal at each node (for the given spot).
     """
+    # Validate option_type
+    if option_type not in ('call', 'put'):
+        raise ValueError("option_type must be 'call' or 'put'")
+    
+    # Choose pricing function
+    if option_type == 'call':
+        price_func = black_scholes_call
+    else:
+        price_func = black_scholes_put
+    
     # CRR parameters
     dt = T / n
     u = np.exp(sigma_spot * np.sqrt(dt))  # up factor
@@ -104,13 +149,13 @@ def binomial_tree_value(
     for idx, spot in enumerate(spots_n):
         vol_low = sigma_fair_func(spot)
         vol_high = vol_low + sigma_offset
-        price_low = black_scholes_call(spot, K, 0.0, r, vol_low)
-        price_high = black_scholes_call(spot, K, 0.0, r, vol_high)
+        price_low = price_func(spot, K, 0.0, r, vol_low)
+        price_high = price_func(spot, K, 0.0, r, vol_high)
         unwind_values[idx] = price_high - price_low
     # At maturity, derivative value equals unwind value (no continuation)
     value_grid[n] = unwind_values
     
-    # Boundary tracking: for each time step, store the smallest spot where unwind is optimal
+    # Boundary tracking: for each time step, store the spot level that separates exercise region
     boundary = np.full(n + 1, np.inf)
     # exercise flag per node (for output)
     exercise_flag = [None] * (n + 1)
@@ -133,8 +178,8 @@ def binomial_tree_value(
             time_to_expiry = T - i * dt
             vol_low = sigma_fair_func(spot)
             vol_high = vol_low + sigma_offset
-            price_low = black_scholes_call(spot, K, time_to_expiry, r, vol_low)
-            price_high = black_scholes_call(spot, K, time_to_expiry, r, vol_high)
+            price_low = price_func(spot, K, time_to_expiry, r, vol_low)
+            price_high = price_func(spot, K, time_to_expiry, r, vol_high)
             unwind_vals[idx] = price_high - price_low
         
         # choose max between continuation and unwind
@@ -145,12 +190,14 @@ def binomial_tree_value(
         exercise = unwind_vals >= continuation_values
         exercise_flag[i] = exercise
         
-        # If any exercise at this time step, record the smallest spot where exercise occurs
+        # If any exercise at this time step, record the boundary spot
         if np.any(exercise):
-            boundary[i] = spots[exercise][0]  # spots are decreasing? Actually spots[0] is highest? Let's check: spots[0] = S0 * u^i, spots[-1] = S0 * d^i. Since u>1>d, spots[0] is highest. We want the spot level above which exercise is optimal. Typically exercise region is for high spots? Let's think: higher spot => higher call price difference? Actually both calls increase with spot, but difference may be monotonic. We'll just record the smallest spot where exercise is triggered. Since spots are descending, we need to find first index where exercise is True.
-            # We'll sort spots ascending for boundary.
-            # For simplicity, we'll store the minimum spot where exercise occurs.
-            boundary[i] = np.min(spots[exercise])
+            if option_type == 'call':
+                # For call spreads, exercise region is above boundary → boundary is lowest spot where exercise True
+                boundary[i] = np.min(spots[exercise])
+            else:
+                # For put spreads, exercise region is below boundary → boundary is highest spot where exercise True
+                boundary[i] = np.max(spots[exercise])
     
     # Return initial value (at time 0, state 0)
     initial_value = value_grid[0][0]

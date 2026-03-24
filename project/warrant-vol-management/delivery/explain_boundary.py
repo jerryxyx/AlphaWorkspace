@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Extreme parameters
-K = 100.0
+K = 200.0
 S0 = 100.0
 sigma_fair = 0.8
 sigma_offset = 0.3

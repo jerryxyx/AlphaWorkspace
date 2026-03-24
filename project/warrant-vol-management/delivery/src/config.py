@@ -5,7 +5,7 @@ import numpy as np
 
 # Base parameters
 BASE_PARAMS = {
-    'S0': 100.0,
+    'S0': 200.0,
     'K': 100.0,
     'T': 1.0,               # years
     'r': 0.05,              # risk-free rate
