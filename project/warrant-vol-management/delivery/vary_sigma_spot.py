@@ -20,9 +20,9 @@ def sigma_fair_func(spot):
     return sigma_fair
 
 # sigma_spot values
-sigma_spots = np.linspace(0.1, 1.0, 19)  # 0.1, 0.15, ..., 1.0
+sigma_spots = np.linspace(0.19, 0.3, 12) # 0.19, 0.20, ..., 0.30  
 print("σ_spot | Call boundary (lower) | Call boundary (upper) | Put boundary (lower) | Put boundary (upper) | Early‑exercise premium")
-print("-------|------------------------|------------------------|----------------------|----------------------|----------------------")
+print("-------|-----------------------|-----------------------|----------------------|----------------------|-----------------------")
 
 # Store results
 results = []
@@ -125,7 +125,7 @@ for sigma_spot in sigma_spots:
     })
     
     # Print
-    print(f"{sigma_spot:6.2f} | {call_lower:20.2f} | {call_upper:20.2f} | {put_lower:20.2f} | {put_upper:20.2f} | {prem_call_val:18.6f}")
+    print(f"{sigma_spot:6.2f} | {call_lower:21.2f} | {call_upper:21.2f} | {put_lower:20.2f} | {put_upper:20.2f} | {prem_call_val:18.6f}")
 
 # Plot boundary ranges vs sigma_spot
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
@@ -187,20 +187,20 @@ print("\n✅ Plot saved to output/vary_sigma_spot.png")
 # Summarise findings
 print("\n=== Summary ===")
 print("When σ_spot is low (≤ 0.2):")
-for r in results[:3]:
-    if r['call_lower'] == -np.inf and r['call_upper'] == np.inf:
-        print(f"  σ_spot={r['sigma_spot']:.2f}: exercise region = entire spot range (always unwind)")
+for res in results[:3]:
+    if res['call_lower'] == -np.inf and res['call_upper'] == np.inf:
+        print(f"  σ_spot={res['sigma_spot']:.2f}: exercise region = entire spot range (always unwind)")
         break
 
 print("\nWhen σ_spot is high (≥ 0.5):")
-for r in results[-5:]:
-    if not (np.isinf(r['call_lower']) and np.isinf(r['call_upper'])):
-        print(f"  σ_spot={r['sigma_spot']:.2f}: finite exercise region [{r['call_lower']:.2f}, {r['call_upper']:.2f}]")
+for res in results[-5:]:
+    if not (np.isinf(res['call_lower']) and np.isinf(res['call_upper'])):
+        print(f"  σ_spot={res['sigma_spot']:.2f}: finite exercise region [{res['call_lower']:.2f}, {res['call_upper']:.2f}]")
         break
 
 # Print lattice boundary directly for a few σ_spot values
 print("\n=== Direct lattice boundaries (n=100) ===")
-for sigma_spot in [0.1, 0.3, 0.6, 0.9]:
+for sigma_spot in [0.15, 0.2, 0.25, 0.3]:
     val_call, b_call, _ = lattice.binomial_tree_value(
         100, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset, option_type='call')
     val_put, b_put, _ = lattice.binomial_tree_value(
