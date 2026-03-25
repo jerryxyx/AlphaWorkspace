@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑24*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑25*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -165,6 +165,7 @@ Personal, non‑professional activities (travel, hobbies, personal projects) enc
 | 2026‑03‑22 | Workspace restructured: created `life/` folder for personal content, moved Vietnam travel files, updated PROGRAMME.md with Life section | OpenClaw Agent |
 | 2026‑03‑22 | Easter Vietnam itinerary created: deleted old 7‑day page, added detailed 7‑8 day Da Nang–Hue–Hoi An–Saigon plan with cultural/handicraft focus | OpenClaw Agent |
 | 2026‑03‑24 | Warrant vol management: lattice extended to call/put spreads, boundary analysis across σ_spot, finite exercise region detection, added memory logs | OpenClaw Agent |
+| 2026‑03‑25 | Cross‑method validation of lattice, PDE, Monte Carlo LSM for call/put spreads; boundary comparison across methods; Notion pages updated | OpenClaw Agent |
 
 ---
 
