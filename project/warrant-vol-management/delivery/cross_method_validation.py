@@ -13,6 +13,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from scipy.interpolate import interp1d
+from scipy.sparse import diags
+from scipy.sparse.linalg import spsolve
 import warnings
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 
@@ -32,6 +34,15 @@ def lsm_value_with_type(
 ):
     """
     LSM valuation for call or put spreads.
+    
+    Returns
+    -------
+    value : float
+        Derivative value at time 0 (max of exercise and continuation values).
+    exercise_value : float
+        Immediate unwind value at time 0.
+    continuation_value : float
+        Value of holding the derivative without unwinding now.
     """
     if option_type not in ('call', 'put'):
         raise ValueError("option_type must be 'call' or 'put'")
@@ -92,14 +103,31 @@ def lsm_value_with_type(
         cashflow[~itm, t] = cashflow[~itm, t + 1] * np.exp(-r * dt)
     
     value = np.mean(cashflow[:, 0])
-    # Exercise boundary: minimum spot where exercise occurred
-    boundary = np.full(n_steps, np.inf)
-    for t in range(n_steps):
-        exercised = cashflow[:, t] == exercise_value[:, t]
-        if np.any(exercised):
-            boundary[t] = np.min(S[exercised, t])
     
-    return value, boundary
+    # Compute exercise and continuation values at time 0
+    # Exercise value is deterministic (same for all paths)
+    exercise_value_scalar = exercise_value[0, 0]
+    
+    # Continuation value: expected value of holding without exercising now.
+    if n_steps > 1:
+        # In-the-money paths at time 0
+        itm0 = exercise_value[:, 0] > 0
+        # Continuation estimate for each path
+        continuation_estimates = np.zeros(n_paths)
+        if np.sum(itm0) > 0:
+            # Regression on ITM paths
+            X0 = np.column_stack([func(S[itm0, 0]) for func in basis_funcs])
+            Y0 = cashflow[itm0, 1] * np.exp(-r * dt)
+            beta0 = np.linalg.lstsq(X0, Y0, rcond=None)[0]
+            continuation_estimates[itm0] = X0 @ beta0
+        # For out-of-the-money paths, continuation is discounted cashflow from next step
+        if np.sum(~itm0) > 0:
+            continuation_estimates[~itm0] = cashflow[~itm0, 1] * np.exp(-r * dt)
+        continuation_value_scalar = np.mean(continuation_estimates)
+    else:
+        continuation_value_scalar = 0.0  # no continuation possible
+    
+    return value, exercise_value_scalar, continuation_value_scalar
 
 # ---------- Extended PDE with option_type ----------
 def pde_value_with_type(
@@ -122,6 +150,21 @@ def pde_value_with_type(
 ):
     """
     PDE valuation for call or put spreads.
+    
+    Returns
+    -------
+    value : float
+        Derivative value at S0 (max of exercise and continuation values).
+    exercise_value : float
+        Immediate unwind value at S0, time 0.
+    continuation_value : float
+        Value of holding the derivative without unwinding now.
+    interp_func : callable
+        Linear interpolation function mapping spot to derivative value.
+    S_grid : np.ndarray
+        Spatial grid used for PDE.
+    V : np.ndarray
+        Value function on S_grid at time 0.
     """
     if option_type not in ('call', 'put'):
         raise ValueError("option_type must be 'call' or 'put'")
@@ -173,15 +216,28 @@ def pde_value_with_type(
     sub = -dt * alpha[1:]
     sup = -dt * gamma[:-1]
     
+    # Construct sparse matrix for linear system (without constraint)
+    M = diags([sub, diag, sup], offsets=[-1, 0, 1], format='csr')
+    
     # Time stepping backward
     exercise_boundary = np.full(n_t + 1, np.inf)
     meaningful = unwind[:, -1] > 1e-3
     if np.any(meaningful):
         exercise_boundary[-1] = np.min(S_grid[meaningful])
     
+    # Variables to store exercise and continuation values at time 0
+    exercise_value_scalar = None
+    continuation_value_scalar = None
+    
     for step in range(n_t - 1, -1, -1):
         V_old = V.copy()
         phi = unwind[:, step]
+        
+        # At initial time step, compute continuation values without constraint
+        if step == 0:
+            continuation_grid = spsolve(M, V_old)
+            continuation_value_scalar = np.interp(S0, S_grid, continuation_grid)
+            exercise_value_scalar = np.interp(S0, S_grid, phi)
         
         V_new = V_old.copy()
         for it in range(max_iter):
@@ -212,7 +268,7 @@ def pde_value_with_type(
     # Create interpolation function for other spots
     interp_func = interp1d(S_grid, V, kind='linear', bounds_error=False, fill_value='extrapolate')
     
-    return value, interp_func, exercise_boundary, S_grid, V
+    return value, exercise_value_scalar, continuation_value_scalar, interp_func, S_grid, V
 
 # ---------- Main validation ----------
 def main():
@@ -257,35 +313,26 @@ def main():
                 print(f'[{combo_idx}/{total_combos}] σ_spot={sigma_spot:.2f}, σ_offset={sigma_offset:.2f}, {option_type}')
                 
                 # 1) Lattice values across spot grid
-                lattice_vals = []
-                for spot in spot_grid:
-                    amer, _, _ = lattice.binomial_tree_value(
-                        lattice_n, spot, K, T, r, sigma_spot, sigma_fair_func,
-                        sigma_offset, option_type=option_type)
-                    lattice_vals.append(amer)
-                lattice_vals = np.array(lattice_vals)
+                
+                lat_val, lat_exercise, lat_continuation = lattice.binomial_tree_value(
+                    lattice_n, S0, K, T, r, sigma_spot, sigma_fair_func,
+                    sigma_offset, option_type=option_type)
+                    
                 
                 # 2) PDE values across spot grid (run once, interpolate)
-                pde_val_at_S0, pde_interp, pde_boundary, pde_S_grid, pde_V = pde_value_with_type(
+                pde_val_at_S0, pde_exercise, pde_continuation, pde_interp, pde_S_grid, pde_V = pde_value_with_type(
                     pde_S_min, pde_S_max, pde_n_S, pde_n_t, S0, K, T, r, sigma_spot,
                     sigma_fair_func, sigma_offset, option_type=option_type)
                 pde_vals = pde_interp(spot_grid)
                 
                 # 3) Monte Carlo value at S0 only
-                mc_val, mc_boundary = lsm_value_with_type(
+                mc_val, mc_exercise, mc_continuation = lsm_value_with_type(
                     mc_n_paths, mc_n_steps, S0, K, T, r, sigma_spot,
                     sigma_fair_func, sigma_offset, option_type=option_type)
                 
-                # 4) European spread value (for early‑exercise premium)
-                if option_type == 'call':
-                    euro = lattice.black_scholes_call(S0, K, T, r, sigma_fair + sigma_offset) - \
-                           lattice.black_scholes_call(S0, K, T, r, sigma_fair)
-                else:
-                    euro = lattice.black_scholes_put(S0, K, T, r, sigma_fair + sigma_offset) - \
-                           lattice.black_scholes_put(S0, K, T, r, sigma_fair)
-                early_premium_lattice = lattice_vals[spot_grid == S0][0] - euro
-                early_premium_pde = pde_val_at_S0 - euro
-                early_premium_mc = mc_val - euro
+                exercise_premium_lattice = lat_exercise - lat_continuation
+                exercise_premium_pde = pde_exercise - pde_continuation
+                exercise_premium_mc = mc_exercise - mc_continuation
                 
                 # 5) Exercise premium across spot grid (lattice only)
                 premium = []
@@ -359,6 +406,9 @@ def main():
                     'early_exercise_premium_lattice': early_premium_lattice,
                     'early_exercise_premium_pde': early_premium_pde,
                     'early_exercise_premium_mc': early_premium_mc,
+                    'exercise_premium_lattice': exercise_premium_lattice,
+                    'exercise_premium_pde': exercise_premium_pde,
+                    'exercise_premium_mc': exercise_premium_mc,
                     'lower_boundary': lower,
                     'upper_boundary': upper,
                     'num_zero_crossings': len(zero_cross),

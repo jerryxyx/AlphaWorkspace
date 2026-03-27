@@ -36,7 +36,7 @@ def pde_value(
     omega: float = 1.2,
     max_iter: int = 100,
     tol: float = 1e-8,
-) -> tuple[float, np.ndarray, np.ndarray]:
+) -> tuple[float, float, float]:
     """
     Solve HJB PDE via finite differences with early exercise constraint.
     
@@ -61,11 +61,11 @@ def pde_value(
     Returns
     -------
     value : float
-        Derivative value at S0.
-    grid_values : np.ndarray shape (n_S, n_t+1)
-        Values on the grid for each time step.
-    exercise_boundary : np.ndarray shape (n_t+1,)
-        For each time step, the spot level above which exercise is optimal.
+        Derivative value at S0 (max of exercise and continuation values).
+    exercise_value : float
+        Immediate unwind value at S0, time 0.
+    continuation_value : float
+        Value of holding the derivative without unwinding now.
     """
     # Grid setup
     S_grid = np.linspace(S_min, S_max, n_S)
@@ -133,16 +133,27 @@ def pde_value(
     # Actually we need to solve linear complementarity problem.
     # We'll use Projected SOR (PSOR) iteration.
     
+    # Variables to store exercise and continuation values at time 0
+    exercise_value = None
+    continuation_value = None
+
     # Time stepping backward
     exercise_boundary = np.full(n_t + 1, np.inf)
     # At maturity, exercise region where unwind > small threshold
     meaningful = unwind[:, -1] > 1e-3
     if np.any(meaningful):
         exercise_boundary[-1] = np.min(S_grid[meaningful])
-    
+
     for step in range(n_t - 1, -1, -1):
         V_old = V.copy()
         phi = unwind[:, step]  # exercise value at this time
+        
+        # For step 0 (initial time), compute continuation value without constraint
+        if step == 0:
+            # Solve linear system for continuation values (without constraint)
+            continuation_grid = spsolve(M, V_old)
+            continuation_value = np.interp(S0, S_grid, continuation_grid)
+            exercise_value = np.interp(S0, S_grid, phi)
         
         # Projected SOR iteration using tridiagonal coefficients
         V_new = V_old.copy()  # initial guess
@@ -177,11 +188,11 @@ def pde_value(
         exercise = meaningful & binding
         if np.any(exercise):
             exercise_boundary[step] = np.min(S_grid[exercise])
-    
+
     # Interpolate to S0
     value = np.interp(S0, S_grid, V)
-    
-    return value, V_history, exercise_boundary
+
+    return value, exercise_value, continuation_value
 
 
 def test_pde():
@@ -198,11 +209,13 @@ def test_pde():
     sigma_fair_func = lambda s: 0.2
     sigma_offset = 0.1
     
-    val, _, boundary = pde_value(
+    val, exercise_value, continuation_value = pde_value(
         S_min, S_max, n_S, n_t, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
     )
     print(f"PDE value: {val}")
-    print(f"Boundary (first 5 steps): {boundary[:5]}")
+    print(f"Exercise value: {exercise_value}")
+    print(f"Continuation value: {continuation_value}")
+    print(f"Exercise premium (exercise - continuation): {exercise_value - continuation_value}")
     return val
 
 

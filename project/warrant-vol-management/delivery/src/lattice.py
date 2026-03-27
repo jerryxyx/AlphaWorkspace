@@ -80,7 +80,7 @@ def binomial_tree_value(
     sigma_fair_func,
     sigma_offset: float,
     option_type: str = 'call',
-) -> tuple[float, np.ndarray, np.ndarray]:
+) -> tuple[float, float, float]:
     """
     Binomial tree valuation of the arbitrage derivative.
     
@@ -108,13 +108,11 @@ def binomial_tree_value(
     Returns
     -------
     value : float
-        Derivative value at time 0.
-    boundary : np.ndarray shape (n+1,)
-        For each time step i (0..n), the spot level above which unwinding is optimal for calls,
-        or below which unwinding is optimal for puts.
-        If no unwinding at that time, boundary[i] = np.inf.
-    exercise_flag : np.ndarray shape (n+1,)
-        Boolean array indicating whether unwinding is optimal at each node (for the given spot).
+        Derivative value at time 0 (max of exercise and continuation values).
+    exercise_value : float
+        Immediate unwind value at time 0.
+    continuation_value : float
+        Risk‑neutral expectation of holding the derivative without unwinding now.
     """
     # Validate option_type
     if option_type not in ('call', 'put'):
@@ -161,6 +159,10 @@ def binomial_tree_value(
     exercise_flag = [None] * (n + 1)
     exercise_flag[n] = np.ones_like(spots_n, dtype=bool)  # at maturity always unwind
     
+    # Variables to store exercise and continuation values at time 0
+    exercise_value = None
+    continuation_value = None
+    
     # Backward induction from step n-1 down to 0
     for i in range(n - 1, -1, -1):
         spots = spot_grid[i]
@@ -182,6 +184,11 @@ def binomial_tree_value(
             price_high = price_func(spot, K, time_to_expiry, r, vol_high)
             unwind_vals[idx] = price_high - price_low
         
+        # Capture exercise and continuation values at time 0 (i = 0)
+        if i == 0:
+            continuation_value = continuation_values[0]
+            exercise_value = unwind_vals[0]
+        
         # choose max between continuation and unwind
         values = np.maximum(unwind_vals, continuation_values)
         value_grid[i] = values
@@ -201,7 +208,7 @@ def binomial_tree_value(
     
     # Return initial value (at time 0, state 0)
     initial_value = value_grid[0][0]
-    return initial_value, boundary, exercise_flag
+    return initial_value, exercise_value, continuation_value
 
 
 def test_binomial_tree():
@@ -217,11 +224,13 @@ def test_binomial_tree():
     sigma_fair_func = lambda s: 0.2
     sigma_offset = 0.1  # high vol option has vol 0.3
     
-    val, boundary, flags = binomial_tree_value(
+    val, exercise_value, continuation_value = binomial_tree_value(
         n, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
     )
     print(f"Initial value: {val}")
-    print(f"Boundary (first 5 steps): {boundary[:5]}")
+    print(f"Exercise value: {exercise_value}")
+    print(f"Continuation value: {continuation_value}")
+    print(f"Exercise premium (exercise - continuation): {exercise_value - continuation_value}")
     return val
 
 

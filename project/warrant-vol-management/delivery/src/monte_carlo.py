@@ -28,7 +28,7 @@ def lsm_value(
     sigma_fair_func: Callable[[float], float],
     sigma_offset: float,
     basis_funcs: list = None,
-) -> tuple[float, np.ndarray]:
+) -> tuple[float, float, float]:
     """
     LSM valuation of the arbitrage derivative.
     
@@ -46,10 +46,11 @@ def lsm_value(
     Returns
     -------
     value : float
-        Derivative value at time 0.
-    exercise_boundary : np.ndarray shape (n_steps,)
-        For each time step, the approximate spot level above which exercise is optimal,
-        estimated from in-the-money paths.
+        Derivative value at time 0 (max of exercise and continuation values).
+    exercise_value : float
+        Immediate unwind value at time 0.
+    continuation_value : float
+        Value of holding the derivative without unwinding now.
     """
     if basis_funcs is None:
         basis_funcs = [lambda x: np.ones_like(x), lambda x: x, lambda x: x ** 2]
@@ -114,15 +115,30 @@ def lsm_value(
     # Discount back to time 0
     value = np.mean(cashflow[:, 0])
     
-    # Estimate exercise boundary: for each time step, compute average spot where exercise occurred
-    # For simplicity, we'll compute the minimum spot among exercised paths.
-    exercise_boundary = np.full(n_steps, np.inf)
-    for t in range(n_steps):
-        exercised = cashflow[:, t] == exercise_value[:, t]  # paths that exercised at t
-        if np.any(exercised):
-            exercise_boundary[t] = np.min(S[exercised, t])
+    # Compute exercise and continuation values at time 0
+    # Exercise value is deterministic (same for all paths)
+    exercise_value_scalar = exercise_value[0, 0]
     
-    return value, exercise_boundary
+    # Continuation value: expected value of holding without exercising now.
+    if n_steps > 1:
+        # In-the-money paths at time 0
+        itm0 = exercise_value[:, 0] > 0
+        # Continuation estimate for each path
+        continuation_estimates = np.zeros(n_paths)
+        if np.sum(itm0) > 0:
+            # Regression on ITM paths
+            X0 = np.column_stack([func(S[itm0, 0]) for func in basis_funcs])
+            Y0 = cashflow[itm0, 1] * np.exp(-r * dt)
+            beta0 = np.linalg.lstsq(X0, Y0, rcond=None)[0]
+            continuation_estimates[itm0] = X0 @ beta0
+        # For out-of-the-money paths, continuation is discounted cashflow from next step
+        if np.sum(~itm0) > 0:
+            continuation_estimates[~itm0] = cashflow[~itm0, 1] * np.exp(-r * dt)
+        continuation_value_scalar = np.mean(continuation_estimates)
+    else:
+        continuation_value_scalar = 0.0  # no continuation possible
+    
+    return value, exercise_value_scalar, continuation_value_scalar
 
 
 def test_lsm():
@@ -137,11 +153,13 @@ def test_lsm():
     sigma_fair_func = lambda s: 0.2
     sigma_offset = 0.1
     
-    val, boundary = lsm_value(
+    val, exercise_value, continuation_value = lsm_value(
         n_paths, n_steps, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
     )
     print(f"LSM value: {val}")
-    print(f"Boundary (first 5 steps): {boundary[:5]}")
+    print(f"Exercise value: {exercise_value}")
+    print(f"Continuation value: {continuation_value}")
+    print(f"Exercise premium (exercise - continuation): {exercise_value - continuation_value}")
     return val
 
 

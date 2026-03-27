@@ -22,6 +22,7 @@ __pycache__/
 *.log
 *.tmp
 temp/
+backup/
 
 # Large binary files (except business‑documents/)
 !business‑documents/*.pdf

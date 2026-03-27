@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑25*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑27*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -17,7 +17,7 @@ Deep, domain‑specific notes referenced by the index.
 
 ### 1.1 Trading Knowledge
 - Product specifications, market mechanics, risk concepts
-- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md), [warrant vol margin management](knowledge/trading/warrant-vol-margin-management.md), [cash‑margin arbitrage](knowledge/trading/cash‑margin‑arbitrage.md), [warrant papers grouped summary](../../business-documents/warrant-papers-grouped-summary.md)
+- *Files*: [warrant basics](knowledge/trading/warrant‑basics.md), [CBBC mechanics](knowledge/trading/cbbc‑mechanics.md), [listed‑option obligations](knowledge/trading/listed‑option‑obligations.md), [index basis arbitrage](knowledge/trading/index-basis-arbitrage.md), [warrant vol margin management](knowledge/trading/warrant-vol-margin-management.md), [cash‑margin arbitrage](knowledge/trading/cash‑margin‑arbitrage.md), [gamma PnL essence](knowledge/trading/gamma-pnl-essence.md), [warrant papers grouped summary](../../business-documents/warrant-papers-grouped-summary.md)
 
 ### 1.2 Quantitative Knowledge
 - Models, formulas, derivations, numerical methods
@@ -166,6 +166,7 @@ Personal, non‑professional activities (travel, hobbies, personal projects) enc
 | 2026‑03‑22 | Easter Vietnam itinerary created: deleted old 7‑day page, added detailed 7‑8 day Da Nang–Hue–Hoi An–Saigon plan with cultural/handicraft focus | OpenClaw Agent |
 | 2026‑03‑24 | Warrant vol management: lattice extended to call/put spreads, boundary analysis across σ_spot, finite exercise region detection, added memory logs | OpenClaw Agent |
 | 2026‑03‑25 | Cross‑method validation of lattice, PDE, Monte Carlo LSM for call/put spreads; boundary comparison across methods; Notion pages updated | OpenClaw Agent |
+| 2026‑03‑27 | Added Gamma PnL essence article (Zhihu) to Trading Knowledge | OpenClaw Agent |
 
 ---
 
