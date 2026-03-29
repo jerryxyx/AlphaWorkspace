@@ -66,6 +66,8 @@ networksetup -setproxybypassdomains Wi-Fi "localhost" "127.0.0.1" "*.local"
 
 TUN mode routes all traffic (including API calls) through the proxy at the network‑layer, eliminating geo‑blocking leaks that can occur with system‑proxy only. Essential for accessing Claude API from Hong Kong.
 
+**Sync Guarantee:** The script below updates both the YAML config file (read by the GUI) and the runtime config via `PUT /configs?force=true`, ensuring the Clash Verge GUI reflects the actual TUN state.
+
 ### Check current TUN state
 ```bash
 curl -s --unix-socket /tmp/verge/verge-mihomo.sock \
@@ -73,7 +75,7 @@ curl -s --unix-socket /tmp/verge/verge-mihomo.sock \
   http://localhost/configs | jq '.tun.enable'
 ```
 
-### Toggle TUN mode with Python script
+### Toggle TUN mode with Python script (recommended)
 A ready‑to‑use script is available in the VPN toolkit:
 ```bash
 cd /Users/xyx/.openclaw/workspace
@@ -81,24 +83,36 @@ python3 infrastructure/vpn/delivery/clash_tun_toggle.py [--on|--off|--toggle] [-
 ```
 
 **Examples:**
-- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --toggle` – flip TUN state
+- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --toggle` – flip TUN state (syncs GUI)
 - `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --on` – ensure TUN enabled
 - `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --off` – ensure TUN disabled
 - `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --status` – show current state
 
-### Manual toggle via API
+**How it works:** The script modifies `tun.enable` in `config.yaml`, then sends a `PUT /configs?force=true` request with the updated YAML content, forcing the `verge‑mihomo` process to reload the configuration. This keeps the GUI and runtime in sync.
+
+### Manual toggle via API (runtime‑only)
 ```bash
-# Enable TUN
+# Enable TUN (runtime only; GUI may stay out‑of‑sync)
 curl -X PATCH --unix-socket /tmp/verge/verge-mihomo.sock \
   -H "Authorization: Bearer set-your-secret" \
   -H "Content-Type: application/json" \
   -d '{"tun":{"enable":true}}' http://localhost/configs
 
-# Disable TUN
+# Disable TUN (runtime only)
 curl -X PATCH --unix-socket /tmp/verge/verge-mihomo.sock \
   -H "Authorization: Bearer set-your-secret" \
   -H "Content-Type: application/json" \
   -d '{"tun":{"enable":false}}' http://localhost/configs
+```
+
+### Reload config from file (after manual YAML edit)
+```bash
+# Read current YAML, send PUT to reload (syncs runtime with file)
+curl -X PUT --unix-socket /tmp/verge/verge-mihomo.sock \
+  -H "Authorization: Bearer set-your-secret" \
+  -H "Content-Type: application/json" \
+  -d '{"path":"","payload":"$(cat ~/Library/Application\ Support/io.github.clash-verge-rev.clash-verge-rev/config.yaml)"}' \
+  "http://localhost/configs?force=true"
 ```
 
 ### Integration with cron jobs

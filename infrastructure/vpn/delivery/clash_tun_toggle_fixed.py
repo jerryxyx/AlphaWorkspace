@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 """
-Clash Verge TUN Mode Toggle (Final)
+Clash Verge TUN Mode Toggle (Fixed)
 
 Toggles TUN mode via both YAML config file and runtime API, ensuring GUI sync.
 Uses PUT /configs?force=true to reload config after updating YAML file.
 
-Uses PyYAML for reading (preserve boolean), string replacement for writing.
+Usage:
+    python3 clash_tun_toggle_fixed.py [--on | --off | --toggle] [--dry-run]
+
+Options:
+    --on         Enable TUN mode
+    --off        Disable TUN mode
+    --toggle     Toggle current state (default)
+    --dry-run    Only show current state, don't change
+    --status     Show current TUN state (same as --dry-run)
 """
 
-import os, sys, json, subprocess, re, argparse, yaml
+import os, sys, json, subprocess, re, argparse
 
 SOCKET_PATH = '/tmp/verge/verge-mihomo.sock'
 SECRET = 'set-your-secret'
@@ -46,19 +54,38 @@ def get_api_tun():
         return None
 
 def get_yaml_tun():
-    """Read tun.enable from YAML file using PyYAML."""
+    """Read tun.enable from YAML file (simple regex)."""
     if not os.path.exists(CONFIG_PATH):
         return None
-    try:
-        with open(CONFIG_PATH, 'r') as f:
-            data = yaml.safe_load(f)
-        return data.get('tun', {}).get('enable', None)
-    except Exception as e:
-        print(f'YAML parse error: {e}', file=sys.stderr)
-        return None
+    with open(CONFIG_PATH, 'r') as f:
+        content = f.read()
+    # Find tun: block
+    lines = content.split('\n')
+    in_tun = False
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith('tun:'):
+            in_tun = True
+            continue
+        if in_tun and ':' in stripped and not stripped.startswith(' '):
+            # New top-level key, exit tun block
+            break
+        if in_tun and stripped.startswith('enable:'):
+            # Parse boolean
+            val = stripped.split(':', 1)[1].strip()
+            if val.lower() == 'true':
+                return True
+            elif val.lower() == 'false':
+                return False
+            else:
+                try:
+                    return bool(int(val))
+                except:
+                    return None
+    return None
 
 def set_yaml_tun(enable):
-    """Update tun.enable in YAML file using string replacement."""
+    """Update tun.enable in YAML file (preserve formatting)."""
     if not os.path.exists(CONFIG_PATH):
         print(f'Config file not found: {CONFIG_PATH}')
         return False
@@ -72,8 +99,8 @@ def set_yaml_tun(enable):
         if stripped.startswith('tun:'):
             in_tun = True
             continue
-        if in_tun and stripped and not line.startswith(' ') and not line.startswith('\t'):
-            # New top-level key (no indentation), exit tun block
+        if in_tun and ':' in stripped and not stripped.startswith(' '):
+            # New top-level key, exit tun block
             in_tun = False
             continue
         if in_tun and stripped.startswith('enable:'):
@@ -87,7 +114,7 @@ def set_yaml_tun(enable):
         # tun block exists but no enable line? add it
         for i, line in enumerate(lines):
             if line.strip().startswith('tun:'):
-                # Insert after tun: line with same indentation + two spaces
+                # Insert after tun: line
                 indent = line[:len(line) - len(line.lstrip())]
                 lines.insert(i + 1, f'{indent}  enable: {str(enable).lower()}\n')
                 changed = True
@@ -115,7 +142,7 @@ def reload_config():
     return resp is not None
 
 def main():
-    parser = argparse.ArgumentParser(description='Toggle Clash Verge TUN mode (final)')
+    parser = argparse.ArgumentParser(description='Toggle Clash Verge TUN mode (fixed)')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--on', action='store_true', help='Enable TUN mode')
     group.add_argument('--off', action='store_true', help='Disable TUN mode')

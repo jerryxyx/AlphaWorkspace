@@ -42,10 +42,10 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 - **Socket path**: `/tmp/verge/verge‑mihomo.sock`
 - **Secret**: `set‑your‑secret` (default)
 - **TUN toggle script**: `python3 infrastructure/vpn/delivery/clash_tun_toggle.py`
-  - `--toggle` – flip TUN state (default)
+  - `--toggle` – flip TUN state (default) – **syncs GUI and runtime**
   - `--on` – ensure TUN enabled (for cron jobs)
   - `--off` – ensure TUN disabled
-  - `--status` – show current state
+  - `--status` – show current state (API + YAML)
 - **Fastest non‑HK proxy selector**: `python3 infrastructure/vpn/delivery/clash_fastest_non_hk.py [--switch]`
 - **System proxy toggle (legacy)**: macOS `networksetup` commands (see `infrastructure/vpn/topics/clash‑verge‑ops.md`)
 
