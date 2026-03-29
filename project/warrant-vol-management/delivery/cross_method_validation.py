@@ -42,7 +42,7 @@ def main() -> pd.DataFrame:
     mc_n_paths = 8000
     pde_S_min = 1.0
     pde_S_max = 300.0
-    pde_n_S = 120
+    pde_n_S = 40
 
     print(
         f"Unified temporal grid: n_t={n_t} intervals for lattice/PDE/LSM "

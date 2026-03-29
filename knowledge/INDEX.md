@@ -57,11 +57,12 @@ Cross‑product trading‑execution support.
 ---
 
 ## 3. Projects
-Ongoing initiatives with clear separation of knowledge (`topics/`) from deliverables (`delivery/`).
+Ongoing initiatives with clear separation of knowledge (`topics/`) from deliverables (`delivery/`). Each project includes a **project note** (`PROJECT.md`) that summarises objective, knowledge foundation, deliverables, and status, and provides wikilinks to related files.
 
 ### 3.1 Warrant Vol Management
 - **Topics**: cash‑margin math, vol‑surface research, margin‑surface derivation
 - **Delivery**: Numerical methods suite for arbitrage‑derivative valuation: lattice (binomial tree with early‑exercise boundary for call/put spreads), Monte Carlo LSM, PDE finite‑difference solvers; volatility‑function library; Jupyter notebook with visualization; validation tests. Recent enhancements: lattice supports both call and put spreads, boundary analysis across σ_spot, detection of finite exercise regions, and generation of boundary plots. See `project/warrant‑vol‑management/delivery/`. (Original margin‑surface and cash‑margin scripts remain.)
+- **Project note**: [[project/warrant‑vol‑management/PROJECT.md]] – central entry point with objective, knowledge foundation, deliverables, and status.
 
 ### 3.2 Algo Vol Fitter
 - **Topics**: real‑time vol‑fitting algorithms, data pipelines, latency requirements
@@ -169,7 +170,7 @@ Personal, non‑professional activities (travel, hobbies, personal projects) enc
 | 2026‑03‑24 | Warrant vol management: lattice extended to call/put spreads, boundary analysis across σ_spot, finite exercise region detection, added memory logs | OpenClaw Agent |
 | 2026‑03‑25 | Cross‑method validation of lattice, PDE, Monte Carlo LSM for call/put spreads; boundary comparison across methods; Notion pages updated | OpenClaw Agent |
 | 2026‑03‑27 | Added Gamma PnL essence article (Zhihu) to Trading Knowledge | OpenClaw Agent |
-| 2026‑03‑29 | Weekly review: updated PROGRAMME.md (weekly summary requirement), linked warrant‑vol‑management knowledge/delivery/programme, created weekly summary | OpenClaw Agent |
+| 2026‑03‑29 | Weekly review: updated PROGRAMME.md (weekly summary requirement & documentation standards), linked warrant‑vol‑management knowledge/delivery/programme, created weekly summary, added project‑note template (`PROJECT.md`) and wikilink mesh | OpenClaw Agent |
 
 ---
 

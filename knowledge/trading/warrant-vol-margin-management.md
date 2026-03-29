@@ -183,5 +183,8 @@ To manage this risk, a warrant trader could:
 ## Implementation & Numerical Methods
 A companion project implements lattice, Monte Carlo LSM, and PDE solvers for arbitrage‑derivative valuation. See [[project/warrant-vol-management/delivery/SUMMARY.md]] for current status.
 
+## Related Projects
+- [[project/warrant‑vol‑management/PROJECT.md]] – central project note with objective, knowledge foundation, deliverables, and status.
+
 ---
 *This knowledge file is part of the OpenClaw workspace’s structured‑memory system. Refer to [INDEX.md](../../knowledge/INDEX.md) for the full domain map.*

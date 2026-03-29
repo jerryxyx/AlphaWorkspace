@@ -68,6 +68,33 @@ Grant the Agent access to powerful, high‑quality toolkits (OpenClaw skills) th
 2. **Iterative learning:** The Agent learns from past failures and refines its knowledge‑filtering heuristics.
 3. **Portability:** Knowledge is decoupled from the underlying LLM; the reference tree can be cloned to new machines, providing a baseline “brain” that accelerates re‑learning (analogous to a trader’s notes after a multi‑year gap).
 
+### Documentation Standards
+To maintain a **navigable, bidirectional knowledge mesh** (especially for Obsidian wikilinks), the following documentation standards are enforced:
+
+**For every project** (under `project/`):
+- A **`PROJECT.md`** file must exist at the project’s root.
+- The file must contain:
+  - **Objective** – what the project aims to achieve.
+  - **Knowledge foundation** – wikilinks to relevant knowledge files.
+  - **Deliverables** – description of outputs and link to `delivery/SUMMARY.md` (if present).
+  - **Current status** – snapshot of progress, blockers, next steps.
+  - **Connections** – links to related projects, programme sections, external references.
+
+**For every knowledge topic** referenced in the Programme:
+- A corresponding markdown file must exist under `knowledge/`.
+- The file should include a **“Related Projects”** section with wikilinks to relevant `PROJECT.md` files.
+
+**Wikilink pattern:**
+- Use `[[path/to/file]]` syntax (Obsidian‑style) to create bidirectional links.
+- Ensure links are **relative** to the workspace root; avoid absolute paths.
+- From `PROJECT.md` → knowledge files, `delivery/SUMMARY.md`, and `PROGRAMME.md`.
+- From knowledge files → `PROJECT.md` and other knowledge files.
+- From `PROGRAMME.md` → both knowledge files and project notes.
+
+**Index integration:**
+- `knowledge/INDEX.md` must list both knowledge files **and** project notes.
+- Weekly reviews must verify that new projects/topics comply with these standards.
+
 ### Routine
 **Weekly review (triggerable ad‑hoc):**
 - Programme document
