@@ -101,6 +101,12 @@ To maintain a **navigable, bidirectional knowledge mesh** (especially for Obsidi
 - Roles report
 - Knowledge report
 - Create weekly summary in `memory/weekly/YYYY‑MM‑DD‑summary.md`
+- Update Notion **Memory** page with new weekly summary and any daily logs
+
+**Daily log (as needed):**
+- Create daily log in `memory/daily/YYYY‑MM‑DD.md` capturing significant decisions, learnings, and progress.
+- Update Notion **Memory** → **Daily** page with the new log (create child page with title “YYYY‑MM‑DD · Daily” and content).
+- Ensure workspace changes are committed to Git.
 
 ---
 

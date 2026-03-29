@@ -27,6 +27,88 @@ import monte_carlo
 import pde
 
 
+def _estimate_zero_crossing(spots: np.ndarray, premium: np.ndarray, side: str, K: float) -> float:
+    """Estimate zero crossing on a given side of strike using linear interpolation."""
+    if side not in ("left", "right"):
+        raise ValueError("side must be 'left' or 'right'")
+
+    candidates = []
+    for i in range(len(spots) - 1):
+        s1, s2 = float(spots[i]), float(spots[i + 1])
+        p1, p2 = float(premium[i]), float(premium[i + 1])
+
+        if side == "left" and not (s1 <= K and s2 <= K):
+            continue
+        if side == "right" and not (s1 >= K and s2 >= K):
+            continue
+
+        if np.isnan(p1) or np.isnan(p2):
+            continue
+
+        if p1 == 0.0:
+            zero_spot = s1
+        elif p2 == 0.0:
+            zero_spot = s2
+        elif p1 * p2 < 0.0:
+            # Linear interpolation: p(s) = p1 + (p2 - p1) * (s - s1)/(s2 - s1)
+            zero_spot = s1 - p1 * (s2 - s1) / (p2 - p1)
+        else:
+            continue
+        candidates.append(zero_spot)
+
+    if not candidates:
+        return np.nan
+
+    if side == "left":
+        return float(max(candidates))
+    return float(min(candidates))
+
+
+def _build_scenario_summary(df: pd.DataFrame, K: float) -> pd.DataFrame:
+    """Create scenario-level metrics across methods for each (sigma_spot, sigma_offset, option_type)."""
+    scenario_keys = ["sigma_spot", "sigma_offset", "option_type"]
+    rows = []
+
+    for key, g in df.groupby(scenario_keys):
+        g = g.sort_values("S0")
+        row = {
+            "sigma_spot": key[0],
+            "sigma_offset": key[1],
+            "option_type": key[2],
+        }
+
+        # 1) Pairwise average absolute errors across S0 grid (3 measures x 3 method pairs)
+        row["avg_abs_err_option_lattice_pde"] = (g["lattice_option_value"] - g["pde_option_value"]).abs().mean()
+        row["avg_abs_err_option_lattice_lsm"] = (g["lattice_option_value"] - g["lsm_option_value"]).abs().mean()
+        row["avg_abs_err_option_pde_lsm"] = (g["pde_option_value"] - g["lsm_option_value"]).abs().mean()
+
+        row["avg_abs_err_cont_lattice_pde"] = (g["lattice_continuation_value"] - g["pde_continuation_value"]).abs().mean()
+        row["avg_abs_err_cont_lattice_lsm"] = (g["lattice_continuation_value"] - g["lsm_continuation_value"]).abs().mean()
+        row["avg_abs_err_cont_pde_lsm"] = (g["pde_continuation_value"] - g["lsm_continuation_value"]).abs().mean()
+
+        row["avg_abs_err_premium_lattice_pde"] = (g["lattice_exercise_premium"] - g["pde_exercise_premium"]).abs().mean()
+        row["avg_abs_err_premium_lattice_lsm"] = (g["lattice_exercise_premium"] - g["lsm_exercise_premium"]).abs().mean()
+        row["avg_abs_err_premium_pde_lsm"] = (g["pde_exercise_premium"] - g["lsm_exercise_premium"]).abs().mean()
+
+        # 2) Average runtime per method
+        row["avg_time_lattice_sec"] = g["lattice_time_sec"].mean()
+        row["avg_time_pde_sec"] = g["pde_time_sec"].mean()
+        row["avg_time_lsm_sec"] = g["lsm_time_sec"].mean()
+
+        # 3) Zero points left/right of strike from premium curves
+        spots = g["S0"].to_numpy(dtype=float)
+        row["lattice_zero_left"] = _estimate_zero_crossing(spots, g["lattice_exercise_premium"].to_numpy(dtype=float), "left", K)
+        row["lattice_zero_right"] = _estimate_zero_crossing(spots, g["lattice_exercise_premium"].to_numpy(dtype=float), "right", K)
+        row["pde_zero_left"] = _estimate_zero_crossing(spots, g["pde_exercise_premium"].to_numpy(dtype=float), "left", K)
+        row["pde_zero_right"] = _estimate_zero_crossing(spots, g["pde_exercise_premium"].to_numpy(dtype=float), "right", K)
+        row["lsm_zero_left"] = _estimate_zero_crossing(spots, g["lsm_exercise_premium"].to_numpy(dtype=float), "left", K)
+        row["lsm_zero_right"] = _estimate_zero_crossing(spots, g["lsm_exercise_premium"].to_numpy(dtype=float), "right", K)
+
+        rows.append(row)
+
+    return pd.DataFrame(rows).sort_values(scenario_keys).reset_index(drop=True)
+
+
 def main() -> pd.DataFrame:
     sigma_fair = 0.20
     K = 100.0
@@ -119,6 +201,11 @@ def main() -> pd.DataFrame:
     csv_path = "output/cross_method_validation.csv"
     df.to_csv(csv_path, index=False)
     print(f"Saved CSV: {csv_path}")
+
+    summary_df = _build_scenario_summary(df, K)
+    summary_csv_path = "output/cross_method_validation_summary.csv"
+    summary_df.to_csv(summary_csv_path, index=False)
+    print(f"Saved CSV: {summary_csv_path}")
 
     # Runtime comparison summary
     runtime_cols = ["lattice_time_sec", "pde_time_sec", "lsm_time_sec"]
