@@ -47,6 +47,8 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
   - `--off` – ensure TUN disabled
   - `--status` – show current state (API + YAML)
 - **Fastest non‑HK proxy selector**: `python3 infrastructure/vpn/delivery/clash_fastest_non_hk.py [--switch]`
+- **VPN status check**: `python3 infrastructure/vpn/delivery/vpn_check.py` – detailed health (IP, TUN, proxies)
+- **IP region check**: `python3 infrastructure/vpn/delivery/ip_region_check.py` – quick IP/country
 - **System proxy toggle (legacy)**: macOS `networksetup` commands (see `infrastructure/vpn/topics/clash‑verge‑ops.md`)
 
 **Quick aliases** (add to your shell rc if desired):
