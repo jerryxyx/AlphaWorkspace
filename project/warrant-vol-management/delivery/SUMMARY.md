@@ -116,6 +116,11 @@ cd delivery
 ./venv/bin/jupyter notebook notebook/test.ipynb
 ```
 
+## Connections to Knowledge Base
+- This project implements the numerical methods described in [[knowledge/trading/warrant-vol-margin-management]].
+- The overarching framework is defined in [[PROGRAMME.md]] under **Warrant Vol Management**.
+- Weekly reviews ensure alignment between knowledge base and delivery outputs.
+
 ## Conclusion
 The lattice and Monte Carlo methods are production‑ready and agree within machine precision.  
 The PDE method is functional but needs boundary‑detection fixes.  

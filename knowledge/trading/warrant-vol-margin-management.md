@@ -180,5 +180,8 @@ To manage this risk, a warrant trader could:
 - Research on vega risk in structured‑products market making.
 - Market‑microstructure analysis of toxic flow in warrants.
 
+## Implementation & Numerical Methods
+A companion project implements lattice, Monte Carlo LSM, and PDE solvers for arbitrage‑derivative valuation. See [[project/warrant-vol-management/delivery/SUMMARY.md]] for current status.
+
 ---
 *This knowledge file is part of the OpenClaw workspace’s structured‑memory system. Refer to [INDEX.md](../../knowledge/INDEX.md) for the full domain map.*

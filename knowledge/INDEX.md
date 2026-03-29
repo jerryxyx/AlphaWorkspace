@@ -1,5 +1,5 @@
 # Knowledge Index
-*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑27*
+*Root map of the OpenClaw workspace · Last Updated: 2026‑03‑29*
 
 This file is the central index of the Agent’s structured knowledge system. It provides a hierarchical outline of all domains (roles, trading, projects, memory, etc.) with cross‑references to key files.
 
@@ -113,7 +113,9 @@ Temporal logs for raw events, weekly summaries, and curated long‑term insights
 - *Older logs*: `memory/daily/YYYY‑MM‑DD.md`
 
 ### 5.2 Weekly Summaries
-- [2026‑03‑15 summary](memory/weekly/2026‑03‑15‑summary.md), older summaries: `memory/weekly/`
+- [2026‑03‑29 summary](memory/weekly/2026‑03‑29‑summary.md)
+- [2026‑03‑15 summary](memory/weekly/2026‑03‑15‑summary.md)
+- Older summaries: `memory/weekly/`
 
 ### 5.3 Long‑Term Memory
 - Curated insights distilled from daily logs *(eventually merged into `MEMORY.md` for main‑session use)*
@@ -167,6 +169,7 @@ Personal, non‑professional activities (travel, hobbies, personal projects) enc
 | 2026‑03‑24 | Warrant vol management: lattice extended to call/put spreads, boundary analysis across σ_spot, finite exercise region detection, added memory logs | OpenClaw Agent |
 | 2026‑03‑25 | Cross‑method validation of lattice, PDE, Monte Carlo LSM for call/put spreads; boundary comparison across methods; Notion pages updated | OpenClaw Agent |
 | 2026‑03‑27 | Added Gamma PnL essence article (Zhihu) to Trading Knowledge | OpenClaw Agent |
+| 2026‑03‑29 | Weekly review: updated PROGRAMME.md (weekly summary requirement), linked warrant‑vol‑management knowledge/delivery/programme, created weekly summary | OpenClaw Agent |
 
 ---
 

@@ -71,7 +71,7 @@ def black_scholes_put(spot: float, strike: float, time_to_expiry: float,
 
 
 def binomial_tree_value(
-    n: int,
+    n_t: int,
     S0: float,
     K: float,
     T: float,
@@ -86,8 +86,8 @@ def binomial_tree_value(
     
     Parameters
     ----------
-    n : int
-        Number of time steps (height of the tree).
+    n_t : int
+        Number of time intervals. Time step is dt = T / n_t.
     S0 : float
         Initial stock price.
     K : float
@@ -124,8 +124,11 @@ def binomial_tree_value(
     else:
         price_func = black_scholes_put
     
+    if n_t <= 0:
+        raise ValueError("n_t must be a positive integer")
+
     # CRR parameters
-    dt = T / n
+    dt = T / n_t
     u = np.exp(sigma_spot * np.sqrt(dt))  # up factor
     d = 1.0 / u                           # down factor
     q = (np.exp(r * dt) - d) / (u - d)    # risk-neutral up probability
@@ -133,15 +136,15 @@ def binomial_tree_value(
     # Precompute spot grid for each node (time step i, state j)
     # spot[i][j] = S0 * u^(j) * d^(i-j) for j = 0..i
     spot_grid = []
-    for i in range(n + 1):
+    for i in range(n_t + 1):
         spots = S0 * (u ** np.arange(i, -1, -1)) * (d ** np.arange(0, i + 1))
         spot_grid.append(spots)
     
     # Initialize value grid (backward induction)
-    value_grid = [None] * (n + 1)
+    value_grid = [None] * (n_t + 1)
     
-    # At maturity (time step n)
-    spots_n = spot_grid[n]
+    # At maturity (time step n_t)
+    spots_n = spot_grid[n_t]
     # Unwind value = BS_high - BS_low
     unwind_values = np.zeros_like(spots_n)
     for idx, spot in enumerate(spots_n):
@@ -151,20 +154,20 @@ def binomial_tree_value(
         price_high = price_func(spot, K, 0.0, r, vol_high)
         unwind_values[idx] = price_high - price_low
     # At maturity, derivative value equals unwind value (no continuation)
-    value_grid[n] = unwind_values
+    value_grid[n_t] = unwind_values
     
     # Boundary tracking: for each time step, store the spot level that separates exercise region
-    boundary = np.full(n + 1, np.inf)
+    boundary = np.full(n_t + 1, np.inf)
     # exercise flag per node (for output)
-    exercise_flag = [None] * (n + 1)
-    exercise_flag[n] = np.ones_like(spots_n, dtype=bool)  # at maturity always unwind
+    exercise_flag = [None] * (n_t + 1)
+    exercise_flag[n_t] = np.ones_like(spots_n, dtype=bool)  # at maturity always unwind
     
     # Variables to store exercise and continuation values at time 0
     exercise_value = None
     continuation_value = None
     
     # Backward induction from step n-1 down to 0
-    for i in range(n - 1, -1, -1):
+    for i in range(n_t - 1, -1, -1):
         spots = spot_grid[i]
         m = len(spots)
         continuation_values = np.zeros(m)
@@ -214,7 +217,7 @@ def binomial_tree_value(
 def test_binomial_tree():
     """Simple test case."""
     # Example parameters
-    n = 100
+    n_t = 100
     S0 = 100.0
     K = 100.0
     T = 1.0
@@ -225,7 +228,7 @@ def test_binomial_tree():
     sigma_offset = 0.1  # high vol option has vol 0.3
     
     val, exercise_value, continuation_value = binomial_tree_value(
-        n, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
+        n_t, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
     )
     print(f"Initial value: {val}")
     print(f"Exercise value: {exercise_value}")

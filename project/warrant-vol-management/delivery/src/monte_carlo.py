@@ -16,10 +16,35 @@ def black_scholes_call(spot: float, strike: float, time_to_expiry: float,
     d2 = d1 - volatility * np.sqrt(time_to_expiry)
     return spot * norm.cdf(d1) - strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(d2)
 
+def black_scholes_put(spot: float, strike: float, time_to_expiry: float,
+                      risk_free_rate: float, volatility: float) -> float:
+    """European put option price via Black-Scholes."""
+    if time_to_expiry <= 0.0:
+        return max(strike - spot, 0.0)
+    d1 = (np.log(spot / strike) + (risk_free_rate + 0.5 * volatility ** 2) * time_to_expiry) \
+         / (volatility * np.sqrt(time_to_expiry))
+    d2 = d1 - volatility * np.sqrt(time_to_expiry)
+    return strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(-d2) - spot * norm.cdf(-d1)
+
+def _bs_call_vec(spot, strike, tau, r, vol):
+    if tau <= 0.0:
+        return np.maximum(spot - strike, 0.0)
+    sqrt_tau = np.sqrt(tau)
+    d1 = (np.log(spot / strike) + (r + 0.5 * vol**2) * tau) / (vol * sqrt_tau)
+    d2 = d1 - vol * sqrt_tau
+    return spot * norm.cdf(d1) - strike * np.exp(-r * tau) * norm.cdf(d2)
+
+def _bs_put_vec(spot, strike, tau, r, vol):
+    if tau <= 0.0:
+        return np.maximum(strike - spot, 0.0)
+    sqrt_tau = np.sqrt(tau)
+    d1 = (np.log(spot / strike) + (r + 0.5 * vol**2) * tau) / (vol * sqrt_tau)
+    d2 = d1 - vol * sqrt_tau
+    return strike * np.exp(-r * tau) * norm.cdf(-d2) - spot * norm.cdf(-d1)
 
 def lsm_value(
     n_paths: int,
-    n_steps: int,
+    n_t: int,
     S0: float,
     K: float,
     T: float,
@@ -28,6 +53,7 @@ def lsm_value(
     sigma_fair_func: Callable[[float], float],
     sigma_offset: float,
     basis_funcs: list = None,
+    option_type: str = 'call',
 ) -> tuple[float, float, float]:
     """
     LSM valuation of the arbitrage derivative.
@@ -36,9 +62,11 @@ def lsm_value(
     ----------
     n_paths : int
         Number of simulated paths.
-    n_steps : int
-        Number of exercise opportunities (including maturity).
+    n_t : int
+        Number of time intervals. Simulation uses n_t + 1 time points.
     S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset : same as lattice.
+    option_type : str, optional
+        'call' for call spreads, 'put' for put spreads (default 'call').
     basis_funcs : list of callable, optional
         Basis functions for regression, each mapping spot to float.
         Default: [lambda x: 1, lambda x: x, lambda x: x**2].
@@ -52,37 +80,44 @@ def lsm_value(
     continuation_value : float
         Value of holding the derivative without unwinding now.
     """
+    if option_type not in ('call', 'put'):
+        raise ValueError("option_type must be 'call' or 'put'")
+    if n_t <= 0:
+        raise ValueError("n_t must be a positive integer")
+
+    price_func_vec = _bs_call_vec if option_type == 'call' else _bs_put_vec
+
     if basis_funcs is None:
         basis_funcs = [lambda x: np.ones_like(x), lambda x: x, lambda x: x ** 2]
     
-    dt = T / (n_steps - 1) if n_steps > 1 else T
+    n_steps = n_t + 1
+    dt = T / n_t
+    disc = np.exp(-r * dt)   # compute once
+
     # Simulate risk-neutral GBM paths (antithetic variates for variance reduction)
     # We'll generate normal increments
     np.random.seed(12345)  # for reproducibility
-    Z = np.random.randn(n_paths // 2, n_steps - 1)
+    Z = np.random.randn(n_paths // 2, n_t)
     Z = np.vstack([Z, -Z])  # antithetic
     if Z.shape[0] < n_paths:
         # add extra if odd
-        extra = np.random.randn(n_paths - Z.shape[0], n_steps - 1)
+        extra = np.random.randn(n_paths - Z.shape[0], n_t)
         Z = np.vstack([Z, extra])
     
     # Initialize spot paths matrix: (n_paths, n_steps)
     S = np.zeros((n_paths, n_steps))
     S[:, 0] = S0
-    for t in range(1, n_steps):
-        S[:, t] = S[:, t - 1] * np.exp((r - 0.5 * sigma_spot ** 2) * dt + sigma_spot * np.sqrt(dt) * Z[:, t - 1])
+    increments = np.exp((r - 0.5 * sigma_spot**2) * dt + sigma_spot * np.sqrt(dt) * Z)  # (n_paths, n_steps-1)
+    S[:, 1:] = S0 * np.cumprod(increments, axis=1)
     
     # Compute immediate exercise value at each time step
-    exercise_value = np.zeros_like(S)
+    exercise_value = np.empty((n_paths, n_steps))
     for t in range(n_steps):
-        time_to_expiry = T - t * dt
-        for p in range(n_paths):
-            spot = S[p, t]
-            vol_low = sigma_fair_func(spot)
-            vol_high = vol_low + sigma_offset
-            price_low = black_scholes_call(spot, K, time_to_expiry, r, vol_low)
-            price_high = black_scholes_call(spot, K, time_to_expiry, r, vol_high)
-            exercise_value[p, t] = price_high - price_low
+        tau = T - t * dt
+        vol_low = np.asarray(sigma_fair_func(S[:, t]))   # works for constant or array-returning funcs
+        vol_high = vol_low + sigma_offset
+        exercise_value[:, t] = price_func_vec(S[:, t], K, tau, r, vol_high) \
+                          - price_func_vec(S[:, t], K, tau, r, vol_low)
     
     # Initialize cashflow matrix (value if exercised at each time)
     cashflow = np.zeros_like(S)
@@ -94,12 +129,12 @@ def lsm_value(
         itm = exercise_value[:, t] > 0
         if np.sum(itm) == 0:
             # No exercise opportunity
-            cashflow[:, t] = cashflow[:, t + 1] * np.exp(-r * dt)
+            cashflow[:, t] = cashflow[:, t + 1] * disc
             continue
         # Design matrix for regression
         X = np.column_stack([func(S[itm, t]) for func in basis_funcs])  # shape (n_itm, n_basis)
         # Continuation value discounted from next step
-        Y = cashflow[itm, t + 1] * np.exp(-r * dt)
+        Y = cashflow[itm, t + 1] * disc
         # Least squares regression
         beta = np.linalg.lstsq(X, Y, rcond=None)[0]
         continuation_estimate = X @ beta
@@ -108,9 +143,9 @@ def lsm_value(
         # Update cashflows
         cashflow[itm, t] = np.where(exercise,
                                      exercise_value[itm, t],
-                                     cashflow[itm, t + 1] * np.exp(-r * dt))
+                                     cashflow[itm, t + 1] * disc)
         # For out-of-the-money paths, continue
-        cashflow[~itm, t] = cashflow[~itm, t + 1] * np.exp(-r * dt)
+        cashflow[~itm, t] = cashflow[~itm, t + 1] * disc
     
     # Discount back to time 0
     value = np.mean(cashflow[:, 0])
@@ -120,7 +155,7 @@ def lsm_value(
     exercise_value_scalar = exercise_value[0, 0]
     
     # Continuation value: expected value of holding without exercising now.
-    if n_steps > 1:
+    if n_t > 0:
         # In-the-money paths at time 0
         itm0 = exercise_value[:, 0] > 0
         # Continuation estimate for each path
@@ -128,12 +163,12 @@ def lsm_value(
         if np.sum(itm0) > 0:
             # Regression on ITM paths
             X0 = np.column_stack([func(S[itm0, 0]) for func in basis_funcs])
-            Y0 = cashflow[itm0, 1] * np.exp(-r * dt)
+            Y0 = cashflow[itm0, 1] * disc
             beta0 = np.linalg.lstsq(X0, Y0, rcond=None)[0]
             continuation_estimates[itm0] = X0 @ beta0
         # For out-of-the-money paths, continuation is discounted cashflow from next step
         if np.sum(~itm0) > 0:
-            continuation_estimates[~itm0] = cashflow[~itm0, 1] * np.exp(-r * dt)
+            continuation_estimates[~itm0] = cashflow[~itm0, 1] * disc
         continuation_value_scalar = np.mean(continuation_estimates)
     else:
         continuation_value_scalar = 0.0  # no continuation possible
@@ -144,7 +179,7 @@ def lsm_value(
 def test_lsm():
     """Simple test case."""
     n_paths = 10000
-    n_steps = 50
+    n_t = 50
     S0 = 100.0
     K = 100.0
     T = 1.0
@@ -154,7 +189,7 @@ def test_lsm():
     sigma_offset = 0.1
     
     val, exercise_value, continuation_value = lsm_value(
-        n_paths, n_steps, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
+        n_paths, n_t, S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset
     )
     print(f"LSM value: {val}")
     print(f"Exercise value: {exercise_value}")

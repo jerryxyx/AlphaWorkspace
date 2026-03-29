@@ -73,6 +73,7 @@ Grant the Agent access to powerful, high‑quality toolkits (OpenClaw skills) th
 - Programme document
 - Roles report
 - Knowledge report
+- Create weekly summary in `memory/weekly/YYYY‑MM‑DD‑summary.md`
 
 ---
 
@@ -215,6 +216,8 @@ To keep cash margin flat over time:
 
 - **FitVolMv:** Real‑time fair‑vol movement (provided by Algo Vol Fitter).  
 - **VolMg:** Must be shaped as a surface (high OTM/ITM, low ATM) to avoid statistical arbitrage. Derive theoretical breakeven surface via Black‑Scholes + Monte Carlo validation.
+
+**Knowledge & Implementation:** Detailed analysis in [[knowledge/trading/warrant-vol-margin-management]]; numerical methods suite in `project/warrant‑vol‑management/delivery/`.
 
 ### Algo Vol Fitter
 Real‑time (<1 s) low‑latency fitter reflecting listed‑option market.

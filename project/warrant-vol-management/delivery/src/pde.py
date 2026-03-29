@@ -4,7 +4,7 @@ Implicit Euler with explicit constraint enforcement (penalty method).
 """
 import numpy as np
 from scipy.stats import norm
-from scipy.sparse import diags, csr_matrix
+from scipy.sparse import diags
 from scipy.sparse.linalg import spsolve
 from typing import Callable
 
@@ -18,6 +18,17 @@ def black_scholes_call(spot: float, strike: float, time_to_expiry: float,
          / (volatility * np.sqrt(time_to_expiry))
     d2 = d1 - volatility * np.sqrt(time_to_expiry)
     return spot * norm.cdf(d1) - strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(d2)
+
+
+def black_scholes_put(spot: float, strike: float, time_to_expiry: float,
+                      risk_free_rate: float, volatility: float) -> float:
+    """European put option price via Black-Scholes."""
+    if time_to_expiry <= 0.0:
+        return max(strike - spot, 0.0)
+    d1 = (np.log(spot / strike) + (risk_free_rate + 0.5 * volatility ** 2) * time_to_expiry) \
+         / (volatility * np.sqrt(time_to_expiry))
+    d2 = d1 - volatility * np.sqrt(time_to_expiry)
+    return strike * np.exp(-risk_free_rate * time_to_expiry) * norm.cdf(-d2) - spot * norm.cdf(-d1)
 
 
 def pde_value(
@@ -36,6 +47,7 @@ def pde_value(
     omega: float = 1.2,
     max_iter: int = 100,
     tol: float = 1e-8,
+    option_type: str = 'call',
 ) -> tuple[float, float, float]:
     """
     Solve HJB PDE via finite differences with early exercise constraint.
@@ -49,6 +61,8 @@ def pde_value(
     n_t : int
         Number of time steps.
     S0, K, T, r, sigma_spot, sigma_fair_func, sigma_offset : same as lattice.
+    option_type : str, optional
+        'call' for call spreads, 'put' for put spreads (default 'call').
     method : str, optional
         'explicit', 'implicit', or 'cn' (Crank-Nicolson). Default 'implicit'.
     omega : float
@@ -67,6 +81,11 @@ def pde_value(
     continuation_value : float
         Value of holding the derivative without unwinding now.
     """
+    if option_type not in ('call', 'put'):
+        raise ValueError("option_type must be 'call' or 'put'")
+
+    price_func = black_scholes_call if option_type == 'call' else black_scholes_put
+
     # Grid setup
     S_grid = np.linspace(S_min, S_max, n_S)
     dS = S_grid[1] - S_grid[0]
@@ -80,8 +99,8 @@ def pde_value(
             time_to_expiry = T - t
             vol_low = sigma_fair_func(S)
             vol_high = vol_low + sigma_offset
-            price_low = black_scholes_call(S, K, time_to_expiry, r, vol_low)
-            price_high = black_scholes_call(S, K, time_to_expiry, r, vol_high)
+            price_low = price_func(S, K, time_to_expiry, r, vol_low)
+            price_high = price_func(S, K, time_to_expiry, r, vol_high)
             unwind[i, j] = price_high - price_low
     
     # Initialize value grid at maturity
@@ -108,7 +127,7 @@ def pde_value(
         beta[i] = -sigma_spot ** 2 * S ** 2 / (dS ** 2) - r
         gamma[i] = 0.5 * sigma_spot ** 2 * S ** 2 / (dS ** 2) + r * S / (2 * dS)
     
-    # Boundary conditions: V = 0 at S_min and S_max (both calls go to zero for S->0 and S->∞)
+    # Boundary conditions: V = 0 at S_min and S_max for both call/put spreads here.
     # Implement by setting rows for i=0 and i=n_S-1 to identity.
     alpha[0] = 0.0
     beta[0] = 1.0
