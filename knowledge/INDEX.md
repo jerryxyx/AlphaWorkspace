@@ -99,7 +99,7 @@ General‑purpose tooling for network access, system configuration, and real‑w
 
 ### 4.1 VPN / Proxy Management
 - **Topics**: [Clash Verge operations](infrastructure/vpn/topics/clash‑verge‑ops.md)
-- **Delivery**: [fastest‑non‑HK selector](infrastructure/vpn/delivery/clash_fastest_non_hk.py), [group latency tester](infrastructure/vpn/delivery/clash_speed_test.py)
+- **Delivery**: [fastest‑non‑HK selector](infrastructure/vpn/delivery/clash_fastest_non_hk.py), [group latency tester](infrastructure/vpn/delivery/clash_speed_test.py), [TUN‑mode toggle](infrastructure/vpn/delivery/clash_tun_toggle.py)
 
 ### 4.2 Browser Automation
 - **Best practices**: [Browser automation guide](infrastructure/browser‑best‑practices.md) (context control, compact snapshots, stable refs)
@@ -110,8 +110,8 @@ General‑purpose tooling for network access, system configuration, and real‑w
 Temporal logs for raw events, weekly summaries, and curated long‑term insights.
 
 ### 5.1 Daily Logs
-- [2026‑03‑16](memory/daily/2026‑03‑16.md) *(today)*
-- *Older logs*: `memory/daily/YYYY‑MM‑DD.md`
+- [2026‑03‑29](memory/2026‑03‑29.md) *(today, root memory)*
+- *Older logs*: `memory/daily/YYYY‑MM‑DD.md` (gap: 2026‑03‑17–28)
 
 ### 5.2 Weekly Summaries
 - [2026‑03‑29 summary](memory/weekly/2026‑03‑29‑summary.md)

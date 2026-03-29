@@ -1,5 +1,5 @@
 # Clash Verge Operations Guide
-*Last updated: 2026‑03‑12*
+*Last updated: 2026‑03‑29*
 
 ## Basics
 
@@ -60,6 +60,51 @@ networksetup -setsocksfirewallproxystate Wi-Fi on
 **Bypass domains** (optional):
 ```bash
 networksetup -setproxybypassdomains Wi-Fi "localhost" "127.0.0.1" "*.local"
+```
+
+## TUN (VPN) Mode Control
+
+TUN mode routes all traffic (including API calls) through the proxy at the network‑layer, eliminating geo‑blocking leaks that can occur with system‑proxy only. Essential for accessing Claude API from Hong Kong.
+
+### Check current TUN state
+```bash
+curl -s --unix-socket /tmp/verge/verge-mihomo.sock \
+  -H "Authorization: Bearer set-your-secret" \
+  http://localhost/configs | jq '.tun.enable'
+```
+
+### Toggle TUN mode with Python script
+A ready‑to‑use script is available in the VPN toolkit:
+```bash
+cd /Users/xyx/.openclaw/workspace
+python3 infrastructure/vpn/delivery/clash_tun_toggle.py [--on|--off|--toggle] [--dry-run]
+```
+
+**Examples:**
+- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --toggle` – flip TUN state
+- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --on` – ensure TUN enabled
+- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --off` – ensure TUN disabled
+- `python3 infrastructure/vpn/delivery/clash_tun_toggle.py --status` – show current state
+
+### Manual toggle via API
+```bash
+# Enable TUN
+curl -X PATCH --unix-socket /tmp/verge/verge-mihomo.sock \
+  -H "Authorization: Bearer set-your-secret" \
+  -H "Content-Type: application/json" \
+  -d '{"tun":{"enable":true}}' http://localhost/configs
+
+# Disable TUN
+curl -X PATCH --unix-socket /tmp/verge/verge-mihomo.sock \
+  -H "Authorization: Bearer set-your-secret" \
+  -H "Content-Type: application/json" \
+  -d '{"tun":{"enable":false}}' http://localhost/configs
+```
+
+### Integration with cron jobs
+To ensure TUN is enabled before a scheduled task (e.g., morning report), add a pre‑hook:
+```bash
+python3 infrastructure/vpn/delivery/clash_tun_toggle.py --on
 ```
 
 ## Current Configuration (2026‑03‑12)

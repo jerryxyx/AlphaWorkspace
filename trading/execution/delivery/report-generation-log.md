@@ -66,6 +66,28 @@
 **Issues**: None reported
 **Report ID**: Discord message‑id: 1481315493934534838
 
+### [2026‑03‑29 18:31 HKT] Report for 2026‑03‑30
+**Status**: Partial (manual simulation for next Monday)
+**Trigger**: Manual (subagent via Discord)
+**Duration**: ~0 seconds (placeholder generation)
+**Data Sources**:
+  - Ex‑dividend: Source timeout (no live data)
+  - Indices: Source timeout
+  - ADRs: Source timeout
+  - Rates: Source timeout
+  - FX: Source timeout
+**Cache Performance**:
+  - Hits: 0
+  - Misses: All sections
+  - Refreshed: 0
+**Issues**:
+  - [x] All data sources timed out (simulation run on Sunday evening)
+  - [ ] Discord delivery may have auth issues (HTTP 403)
+**Improvements Needed**:
+  - [ ] Fix Discord delivery auth for cron job
+  - [ ] Implement cache‑first logic for weekends/holidays
+**Report ID**: `trading/execution/delivery/reports/2026-03-30.md` (workspace)
+
 ## Template Version History
 - **v1.0** (2026‑03‑10): Initial template from checklist
 - **v1.1** (2026‑03‑11): Added ex‑dividend table format, cache manifest
