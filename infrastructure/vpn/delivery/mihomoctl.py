@@ -208,17 +208,18 @@ def cmd_set_proxy(args):
         return 1
     service = services[0]  # usually Ethernet or Wi‑Fi
     print(f"📶 Using network service: {service}")
-    # Set proxy
-    subprocess.run(["networksetup", "-setwebproxy", service, "127.0.0.1", "7895"])
-    subprocess.run(["networksetup", "-setsecurewebproxy", service, "127.0.0.1", "7895"])
-    subprocess.run(["networksetup", "-setsocksfirewallproxy", service, "127.0.0.1", "7896"])
+    # Set proxy (ports from config: mixed-port 7890, socks-port 7891)
+    subprocess.run(["networksetup", "-setwebproxy", service, "127.0.0.1", "7890"])
+    subprocess.run(["networksetup", "-setsecurewebproxy", service, "127.0.0.1", "7890"])
+    subprocess.run(["networksetup", "-setsocksfirewallproxy", service, "127.0.0.1", "7891"])
     subprocess.run(["networksetup", "-setwebproxystate", service, "on"])
     subprocess.run(["networksetup", "-setsecurewebproxystate", service, "on"])
     subprocess.run(["networksetup", "-setsocksfirewallproxystate", service, "on"])
     print("✅ System proxy configured.")
     print("   Note: Some apps may not respect system proxy; set env vars:")
-    print("     export http_proxy=http://127.0.0.1:7895")
-    print("     export https_proxy=http://127.0.0.1:7895")
+    print("     export http_proxy=http://127.0.0.1:7890")
+    print("     export https_proxy=http://127.0.0.1:7890")
+    print("     export all_proxy=socks5://127.0.0.1:7891")
     return 0
 
 def cmd_unset_proxy(args):
