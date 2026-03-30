@@ -86,7 +86,6 @@ def main():
     parser = argparse.ArgumentParser(description="Select fastest non‑HK proxy")
     parser.add_argument("--switch", action="store_true", help="Switch GLOBAL selector to chosen proxy")
     parser.add_argument("--dry-run", action="store_true", default=True, help="Dry run (default)")
-    parser.add_argument("--fast", action="store_true", help="Test only the 'now' proxy of each group (faster)")
     args = parser.parse_args()
     if args.switch:
         args.dry_run = False

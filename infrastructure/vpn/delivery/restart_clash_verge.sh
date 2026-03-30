@@ -12,13 +12,13 @@ osascript -e 'tell application "Clash Verge" to quit' 2>/dev/null || true
 sleep 2
 
 # 2. Kill the core process (verge-mihomo) – requires sudo
-if pgrep -f verge-mihomo >/dev/null; then
-    echo "   Killing core process (sudo required)..."
-    sudo pkill -f verge-mihomo 2>/dev/null || true
-    sleep 1
-else
-    echo "   Core process already stopped."
-fi
+# if pgrep -f verge-mihomo >/dev/null; then
+#     echo "   Killing core process (sudo required)..."
+#     sudo pkill -f verge-mihomo 2>/dev/null || true
+#     sleep 1
+# else
+#     echo "   Core process already stopped."
+# fi
 
 # 3. Reopen the app
 echo "   Opening Clash Verge..."
