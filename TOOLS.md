@@ -50,6 +50,7 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 - **VPN status check**: `python3 infrastructure/vpn/delivery/vpn_check.py` – detailed health (IP, TUN, proxies)
 - **IP region check**: `python3 infrastructure/vpn/delivery/ip_region_check.py` – quick IP/country
 - **System proxy toggle (legacy)**: macOS `networksetup` commands (see `infrastructure/vpn/topics/clash‑verge‑ops.md`)
+- **Restart script**: `infrastructure/vpn/delivery/restart_clash_verge.sh` – quits GUI, kills core, reopens (sudo required)
 
 **Quick aliases** (add to your shell rc if desired):
 ```bash
