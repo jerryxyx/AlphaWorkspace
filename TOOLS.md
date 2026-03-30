@@ -37,20 +37,13 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
-### Clash Verge
+### Clash Verge (deprecated – scripts archived)
 
-- **Socket path**: `/tmp/verge/verge‑mihomo.sock`
-- **Secret**: `set‑your‑secret` (default)
-- **TUN toggle script**: `python3 infrastructure/vpn/delivery/clash_tun_toggle.py`
-  - `--toggle` – flip TUN state (default) – **syncs GUI and runtime**
-  - `--on` – ensure TUN enabled (for cron jobs)
-  - `--off` – ensure TUN disabled
-  - `--status` – show current state (API + YAML)
-- **Fastest non‑HK proxy selector**: `python3 infrastructure/vpn/delivery/clash_fastest_non_hk.py [--switch]`
-- **VPN status check**: `python3 infrastructure/vpn/delivery/vpn_check.py` – detailed health (IP, TUN, proxies)
-- **IP region check**: `python3 infrastructure/vpn/delivery/ip_region_check.py` – quick IP/country
-- **System proxy toggle (legacy)**: macOS `networksetup` commands (see `infrastructure/vpn/topics/clash‑verge‑ops.md`)
-- **Restart script**: `infrastructure/vpn/delivery/restart_clash_verge.sh` – quits GUI, kills core, reopens (sudo required)
+- **Note**: Clash Verge has been replaced by Mihomo (Clash Meta) for command‑line management.
+- **Archived scripts**: `clash_tun_toggle.py.bak`, `clash_speed_test.py.bak`, `vpn_check.py.bak` (original scripts renamed).
+- **Fastest non‑HK selector (updated)**: `python3 infrastructure/vpn/delivery/clash_fastest_non_hk.py` – now a dry‑run tool that prints the fastest non‑HK group name (no switching).
+- **IP region check**: `python3 infrastructure/vpn/delivery/ip_region_check.py` – still works for quick IP/region.
+- **Restart script**: `infrastructure/vpn/delivery/restart_clash_verge.sh` – may be used to stop Clash Verge GUI.
 
 ### Mihomo (Clash Meta) – command‑line alternative
 
@@ -64,22 +57,23 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
   - `switch <group> <target>` – switch selector
   - `latency` – test proxy latencies
   - `set‑proxy` / `unset‑proxy` – configure macOS system proxy
-  - `start` / `stop` / `restart` – control launchd service
-- **Service**: LaunchAgent `com.user.mihomo` loaded at login (runs as user, no TUN).
-- **Ports**: mixed‑port 7895, SOCKS 7896, external‑controller 9095, secret `set‑your‑secret`
-- **TUN note**: TUN mode requires root; currently disabled in config. Enable by editing `~/.config/mihomo/config.yaml` and setting `tun.enable: true`, then restart with sudo.
+  - `start` / `stop` / `restart` – control launchd service (user‑level)
+  - `install‑root‑daemon` – install root LaunchDaemon for TUN mode (requires sudo)
+  - `root‑start` – start root daemon (requires sudo)
+- **Service**: LaunchAgent `com.user.mihomo` loaded at login (runs as user, no TUN). For TUN mode, use root LaunchDaemon.
+- **Ports**: mixed‑port 7890, SOCKS 7891, redir‑port 7892, external‑controller 9095, secret `set‑your‑secret`
+- **TUN note**: TUN is enabled in config (`tun.enable: true`). To activate TUN (full traffic capture), run mihomo as root via the provided root daemon.
 
 **Quick aliases** (add to your shell rc if desired):
 ```bash
-alias tun-on='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/clash_tun_toggle.py --on'
-alias tun-off='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/clash_tun_toggle.py --off'
-alias tun-toggle='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/clash_tun_toggle.py --toggle'
-alias tun-status='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/clash_tun_toggle.py --status'
 alias mihomo-status='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/mihomoctl.py status'
 alias mihomo-fastest='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/mihomoctl.py fastest-non-hk'
 alias mihomo-proxy-on='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/mihomoctl.py set-proxy'
 alias mihomo-proxy-off='python3 /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/mihomoctl.py unset-proxy'
+alias mihomo-install-root='sudo /Users/xyx/.openclaw/workspace/infrastructure/vpn/delivery/install_root_daemon.sh'
 ```
+
+**Note**: The legacy Clash Verge scripts (`clash_tun_toggle.py`, `clash_speed_test.py`, `vpn_check.py`) have been renamed to `.bak` as they no longer work with the current setup. Use `mihomoctl` instead.
 
 ---
 
