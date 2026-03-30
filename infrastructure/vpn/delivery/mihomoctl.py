@@ -248,6 +248,29 @@ def cmd_restart(args):
     cmd_start(None)
     return 0
 
+def cmd_install_root_daemon(args):
+    """Install root LaunchDaemon plist (requires sudo)."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    src = os.path.join(script_dir, "com.user.mihomo.root.plist")
+    if not os.path.exists(src):
+        print(f"❌ Root plist not found at {src}")
+        print("  Run 'mihomo-setup.py' first to generate the plist.")
+        return 1
+    print("📦 To install the root LaunchDaemon (runs mihomo with TUN as root):")
+    print(f"  sudo cp {src} /Library/LaunchDaemons/")
+    print("  sudo launchctl load -w /Library/LaunchDaemons/com.user.mihomo.root.plist")
+    print("\n⚠️  This will start mihomo as root at boot, enabling TUN mode.")
+    print("   Ensure TUN is enabled in config (~/.config/mihomo/config.yaml).")
+    return 0
+
+def cmd_root_start(args):
+    """Start the root daemon (requires sudo)."""
+    print("🚀 To start the root daemon (if already installed):")
+    print("  sudo launchctl load -w /Library/LaunchDaemons/com.user.mihomo.root.plist")
+    print("\n📌 To stop the root daemon:")
+    print("  sudo launchctl unload /Library/LaunchDaemons/com.user.mihomo.root.plist")
+    return 0
+
 # --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
@@ -289,6 +312,9 @@ def main():
     subparsers.add_parser("start", help="Start mihomo via launchctl")
     subparsers.add_parser("stop", help="Stop mihomo via launchctl")
     subparsers.add_parser("restart", help="Restart mihomo")
+    # root daemon (requires sudo)
+    subparsers.add_parser("install-root-daemon", help="Install root LaunchDaemon for TUN mode")
+    subparsers.add_parser("root-start", help="Start the root daemon (requires sudo)")
     
     args = parser.parse_args()
     
@@ -305,6 +331,8 @@ def main():
         "start": cmd_start,
         "stop": cmd_stop,
         "restart": cmd_restart,
+        "install-root-daemon": cmd_install_root_daemon,
+        "root-start": cmd_root_start,
     }
     func = cmd_map[args.command]
     return func(args)
