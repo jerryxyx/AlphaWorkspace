@@ -60,6 +60,7 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
   - `start` / `stop` / `restart` – control launchd service (user‑level)
   - `install‑root‑daemon` – install root LaunchDaemon for TUN mode (requires sudo)
   - `root‑start` – start root daemon (requires sudo)
+- **Test script**: `python3 infrastructure/vpn/delivery/test_mihomoctl.py [--verbose] [--no-switch]` – comprehensive test of all functions.
 - **Service**: LaunchAgent `com.user.mihomo` loaded at login (runs as user, no TUN). For TUN mode, use root LaunchDaemon.
 - **Ports**: mixed‑port 7890, SOCKS 7891, redir‑port 7892, external‑controller 9095, secret `set‑your‑secret`
 - **TUN note**: TUN is enabled in config (`tun.enable: true`). To activate TUN (full traffic capture), run mihomo as root via the provided root daemon.
